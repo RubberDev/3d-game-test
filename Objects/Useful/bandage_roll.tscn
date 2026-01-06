@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bw84wmlc2pv7x"]
+
+[ext_resource type="Script" uid="uid://cvqi0qa6uriqw" path="res://Objects/Useful/Scripts/bandage_roll.gd" id="1_gumb5"]
+[ext_resource type="PackedScene" uid="uid://c0vkkdrlmn5u2" path="res://Models/Objects/BandageRoll.glb" id="1_ul3lf"]
+[ext_resource type="AudioStream" uid="uid://dgwjfrrq4shhm" path="res://AudioFX/UseBandages.wav" id="3_aepw5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ul3lf"]
+size = Vector3(0.52671814, 0.5169678, 0.52378845)
+
+[node name="BandageRoll" type="Node3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("1_gumb5")
+
+[node name="BandageRoll" parent="." instance=ExtResource("1_ul3lf")]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.392334e-05, -0.0017700195, 0.004966736)
+shape = SubResource("BoxShape3D_ul3lf")
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="UseBandages" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("3_aepw5")
+volume_db = -5.0
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="finished" from="SFX/UseBandages" to="." method="_on_use_bandages_finished"]

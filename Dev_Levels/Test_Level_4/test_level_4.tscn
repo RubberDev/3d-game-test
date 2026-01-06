@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://dq1eikgapjom1"]
+
+[ext_resource type="PackedScene" uid="uid://bf4wkce43o687" path="res://Environment_Details/toggle_light_proto.tscn" id="1_eslte"]
+[ext_resource type="Material" uid="uid://dv8mmrc4c5blb" path="res://Materials/1 Debug/DarkCheckerTriplaner.tres" id="1_vhp6r"]
+[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="3_nlg6i"]
+
+[sub_resource type="Environment" id="Environment_dtmdw"]
+
+[node name="TestLevel4" type="Node3D"]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_dtmdw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.230813, 0.772667, -0.591364, -0.280936, 0.634811, 0.719784, 0.931558, 0, 0.363593, -5, 8.13734, 0)
+shadow_enabled = true
+
+[node name="Geometry" type="Node" parent="."]
+
+[node name="MiscLights" type="Node" parent="Geometry"]
+
+[node name="ToggleLightProto" parent="Geometry/MiscLights" instance=ExtResource("1_eslte")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.30203, 1.93408, -4.20829)
+
+[node name="Light1" parent="Geometry/MiscLights/ToggleLightProto/Lights" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.00799)
+light_energy = 5.0
+shadow_enabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Geometry/MiscLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.04894, 2.36161, -2.69129)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="Geometry"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+use_collision = true
+material = ExtResource("1_vhp6r")
+
+[node name="Floor2" type="CSGBox3D" parent="Geometry"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 10, 0, 5.02009, 0)
+use_collision = true
+material = ExtResource("1_vhp6r")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("3_nlg6i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.12147, 1, 3.74784)
+
+[node name="ToggleLightProto" parent="." instance=ExtResource("1_eslte")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.59929, 3.05558, 3.39701)
+Default_Intensity = 5
+
+[node name="Light1" parent="ToggleLightProto/Lights" index="0"]
+light_energy = 6.564
+
+[editable path="Geometry/MiscLights/ToggleLightProto"]
+[editable path="ToggleLightProto"]

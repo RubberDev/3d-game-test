@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyw1mi7fo6m5y"]
+
+[ext_resource type="Script" uid="uid://c3073pmq66nol" path="res://Entities/Scripts/angy_cube_behavior.gd" id="1_7fsx6"]
+[ext_resource type="Material" uid="uid://b4wd0ylaxc2du" path="res://Materials/DebugMaterials/KeyTestClosed.tres" id="2_xs5mb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iogur"]
+size = Vector3(0.6014404, 1, 0.54193115)
+
+[sub_resource type="BoxMesh" id="BoxMesh_am8rh"]
+
+[node name="AngyCube" type="Area3D"]
+script = ExtResource("1_7fsx6")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_iogur")
+
+[node name="DebugMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_am8rh")
+surface_material_override/0 = ExtResource("2_xs5mb")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

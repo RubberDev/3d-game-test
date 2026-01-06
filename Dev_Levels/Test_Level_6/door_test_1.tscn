@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw84cc8s0gp3v"]
+
+[ext_resource type="Material" uid="uid://dv8mmrc4c5blb" path="res://Materials/1 Debug/DarkCheckerTriplaner.tres" id="1_pm57e"]
+[ext_resource type="PackedScene" uid="uid://dfgks143esy4c" path="res://Models/door_ref.tscn" id="2_a4srh"]
+[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="3_kr6kc"]
+[ext_resource type="PackedScene" uid="uid://jmqk0xp2xuu" path="res://Objects/Buildings/door_01.tscn" id="4_l4baf"]
+
+[sub_resource type="Environment" id="Environment_kr6kc"]
+
+[node name="DoorTest1" type="Node3D"]
+
+[node name="Env" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_kr6kc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(1, 0, 0, 0, 0.27365702, 0.96182734, 0, -0.96182734, 0.27365702, 0, 8.994662, 6.566722)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, 0, 0)
+material_override = ExtResource("1_pm57e")
+use_collision = true
+
+[node name="DoorRef" parent="." instance=ExtResource("2_a4srh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.446195, 0.37265337, -4.3657966)
+
+[node name="DoorRef2" parent="." instance=ExtResource("2_a4srh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.629348, 0.37352663, 0.42369932)
+Locked = true
+
+[node name="Player" parent="." instance=ExtResource("3_kr6kc")]
+
+[node name="DoorRef3" parent="." instance=ExtResource("4_l4baf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.33499455, 5)
+Locked = true

@@ -1,0 +1,658 @@
+[gd_scene load_steps=22 format=3 uid="uid://cbwhu5nvispoc"]
+
+[ext_resource type="Script" uid="uid://bjxx4fabjv24d" path="res://Player/Scripts/PlayerLogic.gd" id="1_fc6ud"]
+[ext_resource type="Texture2D" uid="uid://bhce550tjudtu" path="res://addons/KenneyTextures/orange/texture_09.png" id="2_dupeg"]
+[ext_resource type="Script" uid="uid://bdo2ry1ein8f5" path="res://Player/Scripts/player_ui.gd" id="3_nppgl"]
+[ext_resource type="Texture2D" uid="uid://by05bbrjrv7o3" path="res://Textures/crosshair007.png" id="4_7g32c"]
+[ext_resource type="AudioStream" uid="uid://bu0nvnti3uat8" path="res://AudioFX/ToggleFlashlight.wav" id="4_s6q7s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fc6ud"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dupeg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nppgl"]
+albedo_texture = ExtResource("2_dupeg")
+uv1_triplanar = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jug1w"]
+bg_color = Color(0.462291, 0.462291, 0.462291, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7g32c"]
+bg_color = Color(0.358322, 0, 0.0149581, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nppgl"]
+bg_color = Color(0.43134, 0.43134, 0.43134, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6q7s"]
+bg_color = Color(0.273873, 0.273873, 0.273873, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_s6q7s"]
+font_size = 12
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_jug1w"]
+
+[sub_resource type="Animation" id="Animation_7g32c"]
+resource_name = "Crouch"
+length = 0.2
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1.51661, 0, 0.2, 1, 0, 1.0196991, 0)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.2, 1, 1, 0.23, 1)
+
+[sub_resource type="Animation" id="Animation_jug1w"]
+resource_name = "Headbob"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1.51661, 0, 0.2, 1, 0, 1.4765, 0, 0.4, 1, 0, 1.51661, 0)
+
+[sub_resource type="Animation" id="Animation_61mq0"]
+resource_name = "Hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.08930853), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nppgl"]
+resource_name = "Idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1.51661, 0, 1, 1, 0, 1.45381, 0, 2, 1, 0, 1.51661, 0)
+
+[sub_resource type="Animation" id="Animation_s6q7s"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1.51661, 0)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5qgc2"]
+resource_name = "Uncrouch"
+length = 0.2
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1.02, 0, 0.2, 1, 0, 1.517, 0)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 1, 0.23000002, 1, 0.2, 1, 1, 1, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jug1w"]
+_data = {
+&"Crouch": SubResource("Animation_7g32c"),
+&"Headbob": SubResource("Animation_jug1w"),
+&"Hurt": SubResource("Animation_61mq0"),
+&"Idle": SubResource("Animation_nppgl"),
+&"RESET": SubResource("Animation_s6q7s"),
+&"Uncrouch": SubResource("Animation_5qgc2")
+}
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+floor_stop_on_slope = false
+script = ExtResource("1_fc6ud")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51661, 0)
+
+[node name="Reach" type="RayCast3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -6.55671e-08, -1, 0, 1.5, -4.37114e-08, 0, 0, -0.494087)
+
+[node name="Flashlight" type="SpotLight3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0784769, -0.315481)
+light_color = Color(0.831445, 0.813653, 0.648377, 1)
+light_energy = 0.0
+light_volumetric_fog_energy = 3.0
+shadow_enabled = true
+spot_range = 35.191105
+spot_angle = 37.577393
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_fc6ud")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_dupeg")
+surface_material_override/0 = SubResource("StandardMaterial3D_nppgl")
+
+[node name="CrouchCheck" type="RayCast3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 1, 0)
+
+[node name="PlayerUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_nppgl")
+
+[node name="Crosshair" type="Control" parent="PlayerUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="PlayerUI/Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("4_7g32c")
+expand_mode = 1
+
+[node name="DebugGUI" type="Control" parent="PlayerUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerUI/DebugGUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FPS_Count" type="Label" parent="PlayerUI/DebugGUI/VBoxContainer"]
+layout_mode = 2
+text = "Sample"
+metadata/_edit_use_anchors_ = true
+
+[node name="Player_Speed" type="Label" parent="PlayerUI/DebugGUI/VBoxContainer"]
+layout_mode = 2
+text = "Sample"
+metadata/_edit_use_anchors_ = true
+
+[node name="Key_Press" type="Label" parent="PlayerUI/DebugGUI/VBoxContainer"]
+layout_mode = 2
+text = "Sample"
+metadata/_edit_use_anchors_ = true
+
+[node name="RAM_Usage" type="Label" parent="PlayerUI/DebugGUI/VBoxContainer"]
+layout_mode = 2
+text = "Sample"
+metadata/_edit_use_anchors_ = true
+
+[node name="RAM_Peak_Use" type="Label" parent="PlayerUI/DebugGUI/VBoxContainer"]
+layout_mode = 2
+text = "Sample"
+metadata/_edit_use_anchors_ = true
+
+[node name="CPU_Threads" type="Label" parent="PlayerUI/DebugGUI/VBoxContainer"]
+layout_mode = 2
+text = "Sample"
+metadata/_edit_use_anchors_ = true
+
+[node name="CPU_Name" type="Label" parent="PlayerUI/DebugGUI/VBoxContainer"]
+layout_mode = 2
+text = "Sample"
+metadata/_edit_use_anchors_ = true
+
+[node name="GameBars" type="Control" parent="PlayerUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="PlayerUI/GameBars"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 650.0
+offset_right = 358.0
+offset_bottom = 677.0
+theme_override_styles/background = SubResource("StyleBoxFlat_jug1w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7g32c")
+step = 1.0
+value = 100.0
+
+[node name="Console" type="Control" parent="PlayerUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConsoleBG" type="Panel" parent="PlayerUI/Console"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 688.0
+offset_bottom = -174.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nppgl")
+
+[node name="ConsoleInput" type="LineEdit" parent="PlayerUI/Console/ConsoleBG"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 502.0
+offset_right = 568.0
+offset_bottom = 533.0
+placeholder_text = "Input command here..."
+
+[node name="OutputBG" type="Panel" parent="PlayerUI/Console/ConsoleBG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = 24.0
+offset_right = -25.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s6q7s")
+
+[node name="ConsoleOutput" type="Label" parent="PlayerUI/Console/ConsoleBG/OutputBG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_s6q7s")
+vertical_alignment = 2
+
+[node name="ExitButton" type="Button" parent="PlayerUI/Console/ConsoleBG"]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 2.0
+offset_right = 588.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 9
+text = "X"
+
+[node name="PauseMenu" type="Control" parent="PlayerUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PausePanel" type="Panel" parent="PlayerUI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -162.5
+offset_top = -204.5
+offset_right = 162.5
+offset_bottom = 204.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_jug1w")
+
+[node name="VBoxPause" type="VBoxContainer" parent="PlayerUI/PauseMenu/PausePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="MenuLabel" type="Label" parent="PlayerUI/PauseMenu/PausePanel/VBoxPause"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Resume" type="Button" parent="PlayerUI/PauseMenu/PausePanel/VBoxPause"]
+visible = false
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="PlayerUI/PauseMenu/PausePanel/VBoxPause"]
+layout_mode = 2
+text = "Settings"
+
+[node name="SaveGame" type="Button" parent="PlayerUI/PauseMenu/PausePanel/VBoxPause"]
+layout_mode = 2
+text = "Save Game"
+
+[node name="LoadSave" type="Button" parent="PlayerUI/PauseMenu/PausePanel/VBoxPause"]
+layout_mode = 2
+text = "Load Save"
+
+[node name="Quit" type="Button" parent="PlayerUI/PauseMenu/PausePanel/VBoxPause"]
+layout_mode = 2
+text = "Quit game"
+
+[node name="Quit2Debug" type="Button" parent="PlayerUI/PauseMenu/PausePanel/VBoxPause"]
+layout_mode = 2
+text = "Quit to Debug Menu"
+
+[node name="SettingsMenu" type="Control" parent="PlayerUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingPanel" type="Panel" parent="PlayerUI/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vbox1" type="VBoxContainer" parent="PlayerUI/SettingsMenu/SettingPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -868.9998
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VolumeLabel" type="Label" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+text = "Volume:"
+
+[node name="VolumeSlider" type="HSlider" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+min_value = -100.0
+
+[node name="ResLabel" type="Label" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+text = "Resolution: (Broken)"
+
+[node name="Resolutions" type="OptionButton" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+item_count = 5
+popup/item_0/text = "1440x900"
+popup/item_0/id = 3
+popup/item_1/text = "1920x1080"
+popup/item_1/id = 0
+popup/item_2/text = "1280x800"
+popup/item_2/id = 4
+popup/item_3/text = "1280x720"
+popup/item_3/id = 1
+popup/item_4/text = "854x480"
+popup/item_4/id = 2
+
+[node name="Fullscreen" type="CheckBox" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="WindBrdrless" type="CheckBox" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+button_pressed = true
+text = "Windowed Borderless"
+
+[node name="AntiAliasLabel" type="Label" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+text = "Anti-Aliasing (MSAA)"
+
+[node name="AntiAliasOptions" type="OptionButton" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Disabled"
+popup/item_0/id = 0
+popup/item_1/text = "x2"
+popup/item_1/id = 1
+popup/item_2/text = "x4"
+popup/item_2/id = 2
+popup/item_3/text = "x8"
+popup/item_3/id = 3
+
+[node name="UseTAA" type="CheckBox" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+text = "Enable TAA"
+
+[node name="UseDeband" type="CheckBox" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+text = "Enable Debanding"
+
+[node name="FOVLabel" type="Label" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+text = "FOV: 75"
+
+[node name="FOVLabel2" type="HSlider" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+max_value = 125.0
+step = 5.0
+value = 75.0
+
+[node name="ResetFOVbutton" type="Button" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Reset FOV to 75 degrees"
+
+[node name="ShadowResLabel" type="Label" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+text = "Shadow Resolution"
+
+[node name="OptionButton" type="OptionButton" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+selected = 3
+item_count = 6
+popup/item_0/text = "Very High"
+popup/item_0/id = 0
+popup/item_1/text = "High"
+popup/item_1/id = 1
+popup/item_2/text = "Medium"
+popup/item_2/id = 2
+popup/item_3/text = "Low"
+popup/item_3/id = 3
+popup/item_4/text = "Very Low"
+popup/item_4/id = 4
+popup/item_5/text = "Terribly Low"
+popup/item_5/id = 5
+
+[node name="SensLabel" type="Label" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+text = "Sensitivity: 5.0"
+
+[node name="SensitivitySlider" type="HSlider" parent="PlayerUI/SettingsMenu/SettingPanel/Vbox1"]
+layout_mode = 2
+min_value = 0.001
+max_value = 0.01
+step = 0.001
+value = 0.005
+
+[node name="Vbox2" type="VBoxContainer" parent="PlayerUI/SettingsMenu/SettingPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 286.0
+offset_right = -583.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseSettings" type="Button" parent="PlayerUI/SettingsMenu/SettingPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
+offset_right = -3.0
+offset_bottom = 30.0
+grow_horizontal = 0
+text = "X"
+
+[node name="DeathMenu" type="Control" parent="PlayerUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PlayerUI/DeathMenu"]
+layout_mode = 0
+offset_right = 1278.0
+offset_bottom = 717.0
+color = Color(0, 0, 0, 1)
+
+[node name="Deceased" type="Label" parent="PlayerUI/DeathMenu"]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 278.0
+offset_right = 956.0
+offset_bottom = 359.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 50
+text = "Deceased"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartLevel" type="Button" parent="PlayerUI/DeathMenu"]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 360.0
+offset_right = 736.0
+offset_bottom = 394.0
+text = "Restart Level"
+
+[node name="ReloadSave" type="Button" parent="PlayerUI/DeathMenu"]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 417.0
+offset_right = 736.0
+offset_bottom = 451.0
+text = "Reload Save"
+
+[node name="QuitGame" type="Button" parent="PlayerUI/DeathMenu"]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 473.0
+offset_right = 736.0
+offset_bottom = 507.0
+text = "Quit"
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="Flashlight" type="AudioStreamPlayer3D" parent="Sound"]
+stream = ExtResource("4_s6q7s")
+volume_db = 25.366
+
+[node name="PlayerAnims" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jug1w")
+}
+
+[connection signal="text_submitted" from="PlayerUI/Console/ConsoleBG/ConsoleInput" to="PlayerUI" method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="PlayerUI/Console/ConsoleBG/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="PlayerUI/PauseMenu/PausePanel/VBoxPause/Resume" to="PlayerUI" method="_on_resume_pressed"]
+[connection signal="pressed" from="PlayerUI/PauseMenu/PausePanel/VBoxPause/Settings" to="PlayerUI" method="_on_settings_pressed"]
+[connection signal="pressed" from="PlayerUI/PauseMenu/PausePanel/VBoxPause/SaveGame" to="." method="_on_save_game_pressed"]
+[connection signal="pressed" from="PlayerUI/PauseMenu/PausePanel/VBoxPause/LoadSave" to="." method="_on_load_save_pressed"]
+[connection signal="pressed" from="PlayerUI/PauseMenu/PausePanel/VBoxPause/Quit" to="PlayerUI" method="_on_quit_pressed"]
+[connection signal="pressed" from="PlayerUI/PauseMenu/PausePanel/VBoxPause/Quit2Debug" to="PlayerUI" method="_on_quit_2_debug_pressed"]
+[connection signal="value_changed" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/VolumeSlider" to="PlayerUI" method="_on_volume_slider_value_changed"]
+[connection signal="item_selected" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/Resolutions" to="PlayerUI" method="_on_resolutions_item_selected"]
+[connection signal="toggled" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/Fullscreen" to="PlayerUI" method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/WindBrdrless" to="PlayerUI" method="_on_wind_brdrless_toggled"]
+[connection signal="item_selected" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/AntiAliasOptions" to="PlayerUI" method="_on_anti_alias_options_item_selected"]
+[connection signal="toggled" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/UseTAA" to="PlayerUI" method="_on_use_taa_toggled"]
+[connection signal="toggled" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/UseDeband" to="PlayerUI" method="_on_use_deband_toggled"]
+[connection signal="value_changed" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/FOVLabel2" to="PlayerUI" method="_on_fov_label_2_value_changed"]
+[connection signal="pressed" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/ResetFOVbutton" to="PlayerUI" method="_on_reset_fo_vbutton_pressed"]
+[connection signal="item_selected" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/OptionButton" to="PlayerUI" method="_on_option_button_item_selected"]
+[connection signal="value_changed" from="PlayerUI/SettingsMenu/SettingPanel/Vbox1/SensitivitySlider" to="." method="_on_sensitivity_slider_value_changed"]
+[connection signal="pressed" from="PlayerUI/SettingsMenu/SettingPanel/CloseSettings" to="PlayerUI" method="_on_close_settings_pressed"]
+[connection signal="pressed" from="PlayerUI/DeathMenu/RestartLevel" to="PlayerUI" method="_on_restart_level_pressed"]
+[connection signal="pressed" from="PlayerUI/DeathMenu/ReloadSave" to="." method="_on_reload_save_pressed"]
+[connection signal="pressed" from="PlayerUI/DeathMenu/QuitGame" to="PlayerUI" method="_on_quit_game_pressed"]

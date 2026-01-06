@@ -1,0 +1,146 @@
+[gd_scene load_steps=21 format=3 uid="uid://fgc2wjw78ptl"]
+
+[ext_resource type="Script" uid="uid://bgp4wgttebhwp" path="res://Dev_Levels/Test_Level_1/Scripts/test_level_1.gd" id="1_36p37"]
+[ext_resource type="Texture2D" uid="uid://dj2cwiekcdskw" path="res://addons/KenneyTextures/light/texture_06.png" id="2_8ojrh"]
+[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player_Stuff/Player.tscn" id="3_rtbto"]
+[ext_resource type="Texture2D" uid="uid://dgbtg8q2oo7gw" path="res://addons/KenneyTextures/green/texture_09.png" id="4_bb2r0"]
+[ext_resource type="PackedScene" uid="uid://dfgks143esy4c" path="res://Models/door_ref.tscn" id="5_d6daj"]
+[ext_resource type="PackedScene" uid="uid://geklejscut5a" path="res://Models/Debug/table_ref.tscn" id="6_4wwp2"]
+[ext_resource type="PackedScene" uid="uid://cl42ni6gf1etq" path="res://Models/Debug/dev_key_1.tscn" id="7_ml1yn"]
+[ext_resource type="PackedScene" uid="uid://cojplmxokqxtb" path="res://Models/Debug/dev_key_2.tscn" id="8_dqfr0"]
+[ext_resource type="Script" uid="uid://d50kg10m25pu" path="res://Dev_Levels/Test_Level_1/Scripts/key_cube_trigger.gd" id="9_wkp3r"]
+[ext_resource type="PackedScene" uid="uid://comnlidhk0541" path="res://Models/grab_test.tscn" id="10_jbmuj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ib03"]
+albedo_texture = ExtResource("2_8ojrh")
+uv1_scale = Vector3(0.025, 0.025, 0.025)
+uv1_triplanar = true
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_5ib03"]
+rayleigh_color = Color(0.891371, 0.000777985, 0.91413, 1)
+turbidity = 213.12
+
+[sub_resource type="Sky" id="Sky_jabvb"]
+sky_material = SubResource("PhysicalSkyMaterial_5ib03")
+
+[sub_resource type="Environment" id="Environment_5awq6"]
+background_mode = 2
+sky = SubResource("Sky_jabvb")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jabvb"]
+friction = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5awq6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_t6csn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlgvf"]
+albedo_texture = ExtResource("4_bb2r0")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_hgf2r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kmhue"]
+size = Vector3(2.59814, 1.9472, 0.0532227)
+
+[node name="TestLevel1" type="Node3D"]
+script = ExtResource("1_36p37")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(30, 0.25, 30)
+material = SubResource("StandardMaterial3D_5ib03")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5awq6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-2.49511e-08, 0.821079, -0.570814, 3.58906e-08, 0.570814, 0.821079, 1, -1.98884e-14, -4.37114e-08, 0, 16.1287, 0)
+shadow_enabled = true
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("3_rtbto")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.137003, 0)
+
+[node name="LightBox" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -5)
+physics_material_override = SubResource("PhysicsMaterial_jabvb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LightBox"]
+shape = SubResource("BoxShape3D_5awq6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LightBox/CollisionShape3D"]
+mesh = SubResource("BoxMesh_t6csn")
+surface_material_override/0 = SubResource("StandardMaterial3D_vlgvf")
+
+[node name="Label3D" type="Label3D" parent="LightBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1307, 0)
+billboard = 1
+text = "Weight: 1 KG
+Scale: 1x1x1
+Friction: 0.5"
+
+[node name="HeavyBox" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.56214, 4.96914)
+mass = 3.0
+physics_material_override = SubResource("PhysicsMaterial_jabvb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HeavyBox"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_5awq6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HeavyBox/CollisionShape3D"]
+mesh = SubResource("BoxMesh_t6csn")
+surface_material_override/0 = SubResource("StandardMaterial3D_vlgvf")
+
+[node name="Label3D" type="Label3D" parent="HeavyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.88631, 0)
+billboard = 1
+text = "Weight: 3.0 KG
+Scale: 2x2x2
+Friction: 0.5"
+
+[node name="DoorRef" parent="." instance=ExtResource("5_d6daj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="Table" parent="." instance=ExtResource("6_4wwp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0294061, 0.986464, -3.07055)
+
+[node name="DevKey1" parent="." instance=ExtResource("7_ml1yn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0793386, 1.08568, -2.77394)
+
+[node name="DevKey1Label" type="Label3D" parent="DevKey1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.669879, 0)
+billboard = 1
+text = "When player looks at KeyCube, if raycast is intersecting, if player presses \"Interact\" (e) then change the KeyCube to blue. This doesn't work."
+autowrap_mode = 2
+
+[node name="DevKey2" parent="." instance=ExtResource("8_dqfr0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05164, 0.16297, -3.0429)
+
+[node name="DevKey2Label" type="Label3D" parent="DevKey2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44315, 0)
+billboard = 1
+text = "When player walks into key, change KeyCube color. Does not work."
+autowrap_mode = 2
+
+[node name="KeyCube" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.843417, -8.95147)
+mesh = SubResource("BoxMesh_hgf2r")
+
+[node name="KeyCubeTrigger" type="Area3D" parent="."]
+transform = Transform3D(1.12548, 0, 0, 0, 1, 0, 0, 0, 1, 2.05164, 0.16297, -6.10688)
+script = ExtResource("9_wkp3r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyCubeTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.799072, 0.936432, 0.513824)
+shape = SubResource("BoxShape3D_kmhue")
+
+[node name="KeyCubeTriggerLabel" type="Label3D" parent="KeyCubeTrigger/CollisionShape3D"]
+billboard = 1
+text = "When player walks through Area3D (KeyCubeTrigger), change KeyCube to blue. (This works)"
+autowrap_mode = 2
+
+[node name="GrabTest" parent="." instance=ExtResource("10_jbmuj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.690923, 0.625, -0.34726286)
+
+[connection signal="body_entered" from="KeyCubeTrigger" to="KeyCubeTrigger" method="_on_body_entered"]

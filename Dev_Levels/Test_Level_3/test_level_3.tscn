@@ -1,0 +1,117 @@
+[gd_scene load_steps=9 format=3 uid="uid://ct2bysta120gt"]
+
+[ext_resource type="Material" uid="uid://dv8mmrc4c5blb" path="res://Materials/1 Debug/DarkCheckerTriplaner.tres" id="1_g1upj"]
+[ext_resource type="Script" uid="uid://c8eauffdl10p8" path="res://Dev_Levels/Test_Level_3/Scripts/test_level_3.gd" id="1_q2l5j"]
+[ext_resource type="PackedScene" uid="uid://bf4wkce43o687" path="res://Environment_Details/toggle_light_proto.tscn" id="2_i2rmg"]
+[ext_resource type="Material" uid="uid://qqu0grfi7crc" path="res://Materials/1 Debug/LightCheckerTriplaner.tres" id="2_tcq2e"]
+[ext_resource type="PackedScene" uid="uid://geklejscut5a" path="res://Models/Debug/table_ref.tscn" id="3_vt1il"]
+[ext_resource type="PackedScene" uid="uid://dfgks143esy4c" path="res://Models/door_ref.tscn" id="4_0sdam"]
+[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="5_qfh6y"]
+
+[sub_resource type="Environment" id="Environment_tcq2e"]
+
+[node name="TestLevel3" type="Node3D"]
+script = ExtResource("1_q2l5j")
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_tcq2e")
+
+[node name="Sun" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.0959396, 0.765056, -0.636777, 0.11398, 0.643963, 0.756518, 0.98884, 0, -0.148983, -11.1089, 7.06591, 0)
+shadow_enabled = true
+
+[node name="Geometry" type="Node" parent="."]
+
+[node name="BaseRoom" type="CSGCombiner3D" parent="Geometry"]
+use_collision = true
+
+[node name="Lights" type="Node" parent="Geometry/BaseRoom"]
+
+[node name="ToggleLightProto" parent="Geometry/BaseRoom/Lights" instance=ExtResource("2_i2rmg")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.18451, 1.88884, 3.10639)
+
+[node name="LightSwitch" parent="Geometry/BaseRoom/Lights/ToggleLightProto" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.12795, 0)
+
+[node name="SwitchPart" parent="Geometry/BaseRoom/Lights/ToggleLightProto/LightSwitch/LightTrig" index="1"]
+transform = Transform3D(0.063566305, -0.031770796, 0, 0.06356629, 0.031770807, 0, 0, 0, 0.0546632, 0.0301164, -0.00171816, 0.000318527)
+
+[node name="Light1" parent="Geometry/BaseRoom/Lights/ToggleLightProto/Lights" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.32024, 4.03937, 2.83747)
+light_energy = 1.0
+shadow_enabled = true
+omni_range = 11.5737
+
+[node name="Base" type="CSGBox3D" parent="Geometry/BaseRoom"]
+transform = Transform3D(10, 0, 0, 0, 7.5, 0, 0, 0, 7.5, 0, 3, 0)
+material = ExtResource("1_g1upj")
+
+[node name="InteriorCutout" type="CSGBox3D" parent="Geometry/BaseRoom/Base"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
+operation = 2
+material = ExtResource("1_g1upj")
+
+[node name="EntranceCutout" type="CSGBox3D" parent="Geometry/BaseRoom/Base"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -0.486035, -0.0393731, -0.331897)
+operation = 2
+size = Vector3(0.121094, 0.367172, 0.2229)
+material = ExtResource("1_g1upj")
+
+[node name="EntranceCutout2" type="CSGBox3D" parent="Geometry/BaseRoom/Base"]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0.463456, -0.280457, 0.00150137)
+operation = 2
+size = Vector3(0.121094, 0.367172, 0.2229)
+material = ExtResource("1_g1upj")
+
+[node name="Landing" type="CSGBox3D" parent="Geometry/BaseRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9577, 0.47876, -2.04733)
+size = Vector3(3.08459, 1.95752, 2.90533)
+material = ExtResource("1_g1upj")
+
+[node name="LandingRamp" type="CSGPolygon3D" parent="Geometry/BaseRoom"]
+transform = Transform3D(3.01102, 0, 0, 0, 1.83, 0, 0, 0, 3.13504, -1.4195, -0.366687, -0.591457)
+polygon = PackedVector2Array(0, 0, 0, 1, 1.09032, -0.00542052, 1.02266, -0.00146642)
+material = ExtResource("1_g1upj")
+
+[node name="LandingRailing" type="CSGBox3D" parent="Geometry/BaseRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0066, 1.74808, -0.815094)
+size = Vector3(3.01172, 1.48132, 0.0874634)
+material = ExtResource("2_tcq2e")
+
+[node name="Table" parent="Geometry/BaseRoom" instance=ExtResource("3_vt1il")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.12976, 0.491134, -0.0988324)
+
+[node name="Table2" parent="Geometry/BaseRoom" instance=ExtResource("3_vt1il")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.00823, 0.491134, 2.46525)
+
+[node name="DoorRef" parent="Geometry/BaseRoom" instance=ExtResource("4_0sdam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67456, 1.34057, -2.48574)
+
+[node name="DoorRef2" parent="Geometry/BaseRoom" instance=ExtResource("4_0sdam")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6844, -0.445355, 0.00847256)
+
+[node name="HallwayEntrance" type="CSGCombiner3D" parent="Geometry"]
+use_collision = true
+
+[node name="HallBase" type="CSGBox3D" parent="Geometry/HallwayEntrance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.30991, 2.88277, -2.53978)
+size = Vector3(4.65558, 3.22876, 1.88751)
+material = ExtResource("1_g1upj")
+
+[node name="HallCutout" type="CSGBox3D" parent="Geometry/HallwayEntrance/HallBase"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.541847, 0.195435, 0.00127411)
+operation = 2
+size = Vector3(5.48897, 2.75464, 1.74721)
+material = ExtResource("1_g1upj")
+
+[node name="Light" type="Node" parent="Geometry/HallwayEntrance"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Geometry/HallwayEntrance/Light"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.49755, 4.33672, -2.44431)
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("5_qfh6y")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.5522, 1.91507, -2.56361)
+
+[editable path="Geometry/BaseRoom/Lights/ToggleLightProto"]

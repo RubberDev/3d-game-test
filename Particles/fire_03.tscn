@@ -1,0 +1,93 @@
+[gd_scene load_steps=16 format=3 uid="uid://2pyyo0vsqolx"]
+
+[ext_resource type="Script" uid="uid://cvjktvsouseyc" path="res://Particles/Scripts/fire_01.gd" id="1_uesw3"]
+[ext_resource type="Texture2D" uid="uid://88uraeg5k2n1" path="res://Textures/blackSmoke00.png" id="2_f7i8i"]
+[ext_resource type="Texture2D" uid="uid://c1a6u5ii66p3c" path="res://Textures/blackSmoke01.png" id="3_j0uw3"]
+[ext_resource type="AudioStream" uid="uid://bny4xim8njpo5" path="res://AudioFX/Burnt.wav" id="4_ruqtf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8cjh"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_f7i8i")
+emission_enabled = true
+emission = Color(1, 0.7085384, 0.16622317, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Gradient" id="Gradient_hvbrk"]
+offsets = PackedFloat32Array(0, 0.40869564, 0.6956522)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_h166r"]
+gradient = SubResource("Gradient_hvbrk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3s6pc"]
+emission_shape_scale = Vector3(0.6, 1, 0.6)
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 3, 0)
+scale_min = 6.0
+scale_max = 6.0
+color_ramp = SubResource("GradientTexture1D_h166r")
+
+[sub_resource type="QuadMesh" id="QuadMesh_iv8qk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0y5y0"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_j0uw3")
+
+[sub_resource type="Gradient" id="Gradient_votk5"]
+offsets = PackedFloat32Array(0.11304348, 0.33043477, 0.6869565)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uuchg"]
+gradient = SubResource("Gradient_votk5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kj07k"]
+emission_shape_offset = Vector3(0, 10, 0)
+emission_shape_scale = Vector3(0.8, 1, 0.8)
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 10, 0)
+scale_min = 6.0
+scale_max = 6.0
+color_ramp = SubResource("GradientTexture1D_uuchg")
+
+[sub_resource type="QuadMesh" id="QuadMesh_74ysl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_viyv2"]
+size = Vector3(1, 4.116089, 1)
+
+[node name="Fire01" type="Area3D"]
+script = ExtResource("1_uesw3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Fire" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_u8cjh")
+amount = 10
+lifetime = 4.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_3s6pc")
+draw_pass_1 = SubResource("QuadMesh_iv8qk")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_0y5y0")
+amount = 40
+lifetime = 3.0
+speed_scale = 0.1
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_kj07k")
+draw_pass_1 = SubResource("QuadMesh_74ysl")
+
+[node name="Burnt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ruqtf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 3, 0, 3.1160889, 0)
+shape = SubResource("BoxShape3D_viyv2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

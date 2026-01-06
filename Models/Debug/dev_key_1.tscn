@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cl42ni6gf1etq"]
+
+[ext_resource type="Texture2D" uid="uid://bhce550tjudtu" path="res://addons/KenneyTextures/orange/texture_09.png" id="1_3qduo"]
+[ext_resource type="Script" uid="uid://camyp3uw1uy3v" path="res://Objects/Interaction/DevKey1Interaction.gd" id="2_kgy0y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kgy0y"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_f4xbc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hwq6o"]
+albedo_texture = ExtResource("1_3qduo")
+uv1_triplanar = true
+
+[node name="DevKey1" type="Area3D" groups=["Interactable"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.526759, 0, 0, 0, 0.0578087, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_kgy0y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("BoxMesh_f4xbc")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_hwq6o")
+
+[node name="InteractingComponent" type="Node" parent="."]
+script = ExtResource("2_kgy0y")

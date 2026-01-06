@@ -1,0 +1,133 @@
+[gd_scene load_steps=15 format=3 uid="uid://dfgks143esy4c"]
+
+[ext_resource type="Script" uid="uid://bd8sfi0q3xu3h" path="res://Dev_Levels/Test_Level_1/Scripts/door_ref.gd" id="1_1mf6g"]
+[ext_resource type="Texture2D" uid="uid://dgbtg8q2oo7gw" path="res://addons/KenneyTextures/green/texture_09.png" id="2_mdh8w"]
+[ext_resource type="AudioStream" uid="uid://2pswvgmrh08m" path="res://AudioFX/Artificial/Door_Close.wav" id="2_x3qd0"]
+[ext_resource type="AudioStream" uid="uid://dnyss8cxl5tsn" path="res://AudioFX/Artificial/Door_Open.wav" id="3_31f8l"]
+[ext_resource type="AudioStream" uid="uid://i1w0btvoog5p" path="res://AudioFX/Artificial/LockedWoodDoor.wav" id="4_31f8l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5awq6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jabvb"]
+albedo_texture = ExtResource("2_mdh8w")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qrbtq"]
+
+[sub_resource type="Animation" id="Animation_8jf8s"]
+resource_name = "CloseDoor"
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RotationPoint")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, -0.707107, 0, 0.707107, 0.1, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_31f8l"]
+resource_name = "Locked"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RotationPoint:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.062604964, 0), Vector3(0, 0.08487536, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_oeayn"]
+resource_name = "OpenDoor"
+length = 0.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RotationPoint")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.1, 1, 0, -0.707107, 0, 0.707107)
+
+[sub_resource type="Animation" id="Animation_qrbtq"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RotationPoint")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RotationPoint:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hgf2r"]
+_data = {
+&"CloseDoor": SubResource("Animation_8jf8s"),
+&"Locked": SubResource("Animation_31f8l"),
+&"OpenDoor": SubResource("Animation_oeayn"),
+&"RESET": SubResource("Animation_qrbtq")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x3qd0"]
+size = Vector3(0.25775146, 2.5110474, 1.5106201)
+
+[node name="DoorRef" type="StaticBody3D" groups=["Interactable"]]
+script = ExtResource("1_1mf6g")
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="DoorClose" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("2_x3qd0")
+
+[node name="DoorOpen" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("3_31f8l")
+
+[node name="LockedWoodDoor" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("4_31f8l")
+
+[node name="RotationPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.36691, -0.748755)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RotationPoint"]
+transform = Transform3D(0.099999994, 0, 0, 0, 2.4999998, 0, 0, 0, 1.5, 0.0157309, 0.001962781, 0.748755)
+mesh = SubResource("BoxMesh_5awq6")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_jabvb")
+
+[node name="Label3D" type="Label3D" parent="RotationPoint/MeshInstance3D"]
+transform = Transform3D(10, 0, 0, 0, 0.4, 0, 0, 0, 0.666667, -0.264381, 0.66568, 0)
+billboard = 1
+text = "Weight: Static
+Scale: 0.1x2.5x1.5
+Friction: Static"
+
+[node name="Collision" type="CollisionShape3D" parent="RotationPoint/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 0.99999994, 0, 0, 0)
+shape = SubResource("BoxShape3D_qrbtq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hgf2r")
+}
+
+[node name="LockedCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.016084492, 1.3778992, -0.003967285)
+shape = SubResource("BoxShape3D_x3qd0")
+
+[node name="LockedCollider2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.74003106, 1.3778992, -0.69279885)
+shape = SubResource("BoxShape3D_x3qd0")
+disabled = true

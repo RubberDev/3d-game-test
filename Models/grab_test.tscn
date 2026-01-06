@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://comnlidhk0541"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hy75e"]
+
+[sub_resource type="GDScript" id="GDScript_hy75e"]
+script/source = "extends StaticBody3D
+
+func Interact():
+	self.global_position = $Camera3D/Hand.position
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hy75e"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_c7tw6"]
+
+[node name="GrabTest" type="StaticBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_hy75e")
+script = SubResource("GDScript_hy75e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_hy75e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("SphereMesh_c7tw6")
+skeleton = NodePath("../..")

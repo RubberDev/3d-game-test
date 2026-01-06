@@ -1,0 +1,311 @@
+[gd_scene load_steps=16 format=3 uid="uid://b3kcxiimh0w6m"]
+
+[ext_resource type="Script" uid="uid://x8xtj141tn4c" path="res://Dev_Levels/Test_Level_5/Scripts/test_level_5.gd" id="1_667g5"]
+[ext_resource type="Material" uid="uid://dv8mmrc4c5blb" path="res://Materials/1 Debug/DarkCheckerTriplaner.tres" id="1_kmjpy"]
+[ext_resource type="Material" uid="uid://qqu0grfi7crc" path="res://Materials/1 Debug/LightCheckerTriplaner.tres" id="2_667g5"]
+[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="3_686wi"]
+[ext_resource type="PackedScene" uid="uid://dyw1mi7fo6m5y" path="res://Entities/angy_cube.tscn" id="5_686wi"]
+[ext_resource type="PackedScene" uid="uid://geklejscut5a" path="res://Models/Debug/table_ref.tscn" id="6_mi8ve"]
+[ext_resource type="Material" uid="uid://bf5kflr8uvoax" path="res://Materials/1 Debug/GreenCheckerTriplaner.tres" id="7_lg5jh"]
+[ext_resource type="Script" uid="uid://dc4u2mipdi4c2" path="res://Dev_Levels/Test_Level_5/Scripts/lvl_5_door_1_key.gd" id="8_ec8jc"]
+[ext_resource type="PackedScene" uid="uid://bf4wkce43o687" path="res://Environment_Details/toggle_light_proto.tscn" id="9_1lbfv"]
+
+[sub_resource type="Environment" id="Environment_kmjpy"]
+background_mode = 1
+background_color = Color(0.0475577, 0.0475577, 0.0475576, 1)
+ssao_enabled = true
+ssil_enabled = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1lbfv"]
+friction = 0.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ec8jc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1lbfv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mi8ve"]
+size = Vector3(1.3210449, 0.032470703, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lg5jh"]
+
+[node name="Test_Level_5" type="Node3D"]
+script = ExtResource("1_667g5")
+
+[node name="Player" parent="." instance=ExtResource("3_686wi")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.61971, -0.298544, -0.0361927)
+
+[node name="AngyCube" parent="." instance=ExtResource("5_686wi")]
+transform = Transform3D(4.5689335, 0, 0, 0, 1, 0, 0, 0, 6.0557685, 12.073, -8.299045, 7.9037614)
+CUBE_DMG = 100
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_kmjpy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, -0.679813, 0.733386, 0, -0.733386, -0.679813, 0, 13.2575, 8.88326)
+
+[node name="LevelGeometry" type="Node" parent="."]
+
+[node name="BeginHall" type="CSGCombiner3D" parent="LevelGeometry"]
+use_collision = true
+
+[node name="Floor1" type="CSGBox3D" parent="LevelGeometry/BeginHall"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 5, 5.78735, -0.376953, -2.8006)
+material_override = ExtResource("1_kmjpy")
+material_overlay = ExtResource("1_kmjpy")
+size = Vector3(1.57874, 0.246094, 2.30994)
+material = ExtResource("1_kmjpy")
+
+[node name="Ceiling1" type="CSGBox3D" parent="LevelGeometry/BeginHall"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 5, 0, 5.23786, 0)
+size = Vector3(1, 0.246094, 1)
+material = ExtResource("1_kmjpy")
+
+[node name="Wall1" type="CSGBox3D" parent="LevelGeometry/BeginHall"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 5, 4.34998, 2.46916, -2.34863)
+size = Vector3(1.435, 5.52246, 0.0605469)
+material = ExtResource("2_667g5")
+
+[node name="Wall2" type="CSGBox3D" parent="LevelGeometry/BeginHall"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 5, 0, 2.468, 2.34163)
+size = Vector3(1, 5.52014, 0.0605469)
+material = ExtResource("2_667g5")
+
+[node name="Doorway" type="CSGBox3D" parent="LevelGeometry/BeginHall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.87465, 2.64288, 0.0330048)
+size = Vector3(0.17627, 6.28577, 6.73117)
+material = ExtResource("2_667g5")
+
+[node name="DooraySubtract1" type="CSGBox3D" parent="LevelGeometry/BeginHall/Doorway"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.86688, 0.0211792)
+operation = 2
+size = Vector3(1, 3.74573, 2.67615)
+material = ExtResource("2_667g5")
+
+[node name="Door" type="CSGBox3D" parent="LevelGeometry/BeginHall/Doorway"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0708065, -1.86688, 0.0211792)
+size = Vector3(0.0713008, 3.74573, 2.67615)
+material = ExtResource("1_kmjpy")
+
+[node name="Room1" type="CSGCombiner3D" parent="LevelGeometry"]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 5, 0, 2.468, 2.34163)
+use_collision = true
+
+[node name="Wall3" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50708, -0.0794373, 0.971568)
+size = Vector3(0.0151367, 5.67902, 2.00368)
+material = ExtResource("2_667g5")
+
+[node name="Wall5" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0894852, -0.0794373, 1.96195)
+size = Vector3(0.834854, 5.67902, 0.0589476)
+material = ExtResource("2_667g5")
+
+[node name="Wall6" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.239109, -0.0794373, 6.28522)
+size = Vector3(1.1341, 5.67902, 0.0589476)
+material = ExtResource("2_667g5")
+
+[node name="HoleWall1" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50398, -7.18946, 1.1291)
+size = Vector3(0.0151367, 8.60221, 1.20094)
+material = ExtResource("1_kmjpy")
+
+[node name="HoleWall2" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.721841, -7.18946, 1.12403)
+size = Vector3(0.0151367, 8.60221, 1.19081)
+material = ExtResource("1_kmjpy")
+
+[node name="HoleWall3" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.611062, -7.18946, 0.491327)
+size = Vector3(0.306763, 8.60221, 0.104221)
+material = ExtResource("1_kmjpy")
+
+[node name="HoleWall4" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.611062, -7.18946, 1.74656)
+size = Vector3(0.306763, 8.60221, 0.104221)
+material = ExtResource("1_kmjpy")
+
+[node name="HoleFloor1" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.611062, -11.2831, 1.3468)
+size = Vector3(0.306763, 0.414875, 2.10702)
+material = ExtResource("1_kmjpy")
+
+[node name="Wall4" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.716115, -0.0794373, 2.75437)
+size = Vector3(0.0151367, 5.67902, 7.39289)
+material = ExtResource("2_667g5")
+
+[node name="Wall8" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 0.5604324, -0.079437256, 7.201766)
+size = Vector3(0.0151367, 5.67902, 1.8334699)
+material = ExtResource("2_667g5")
+
+[node name="Wall9" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 0.00039358137, -0.079437256, 7.2017655)
+size = Vector3(0.0151367, 5.67902, 1.8334699)
+material = ExtResource("2_667g5")
+
+[node name="Wall10" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(-4.768369e-08, 0, 0.9999996, 0, 1, 0, -0.9999996, 0, -4.768369e-08, 0.24361528, -0.079437256, 8.116878)
+size = Vector3(0.0151367, 5.67902, 0.9639827)
+material = ExtResource("2_667g5")
+
+[node name="Wall7" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.270501, -0.0794373, 4.13311)
+size = Vector3(0.0151367, 5.67902, 4.63541)
+material = ExtResource("2_667g5")
+
+[node name="Floor2" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.612785, -2.84495, 0.983867)
+material_override = ExtResource("1_kmjpy")
+material_overlay = ExtResource("1_kmjpy")
+size = Vector3(0.289505, 0.246094, 1.86819)
+material = ExtResource("1_kmjpy")
+
+[node name="Floor2Subtract" type="CSGBox3D" parent="LevelGeometry/Room1/Floor2"]
+transform = Transform3D(1, 0, 0, 0, 0.999979, 0, 0, 0, 1, 0, 0.164244, 0.0251814)
+material_override = ExtResource("1_kmjpy")
+material_overlay = ExtResource("1_kmjpy")
+operation = 2
+size = Vector3(0.289505, 1.23572, 0.714684)
+material = ExtResource("1_kmjpy")
+
+[node name="Floor3" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 0.24009295, -2.84495, 5.231025)
+material_override = ExtResource("1_kmjpy")
+material_overlay = ExtResource("1_kmjpy")
+size = Vector3(1.03489, 0.246094, 6.676091)
+material = ExtResource("1_kmjpy")
+
+[node name="Ceiling2" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.620544, 2.76987, 1.40249)
+size = Vector3(0.266724, 0.246094, 4.74164)
+material = ExtResource("1_kmjpy")
+
+[node name="Ceiling3" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 0.21299697, 2.7698703, 5.180488)
+size = Vector3(1.08182, 0.246094, 6.723197)
+material = ExtResource("1_kmjpy")
+
+[node name="CutoutDoor" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(0.049999975, 0, 0, 0, 1, 0, 0, 0, 0.1999999, 0.2755117, -1.3402479, 6.3155665)
+operation = 2
+size = Vector3(1.9506836, 2.7495117, 1.1627197)
+material = ExtResource("2_667g5")
+
+[node name="PzlDoor1" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(0.049999975, 0, 0, 0, 1, 0, 0, 0, 0.1999999, 0.2755117, -1.3402479, 6.287015)
+size = Vector3(1.9506836, 2.7495117, 0.08755493)
+material = ExtResource("2_667g5")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LevelGeometry/Room1"]
+transform = Transform3D(0.99999976, 0, 0, 0, 1, 0, 0, 0, 0.99999976, 0.27573368, -1.5671997, 7.8533206)
+size = Vector3(0.5920563, 3.4066162, 0.52441406)
+material = ExtResource("1_kmjpy")
+
+[node name="LvlObjs" type="Node" parent="."]
+
+[node name="Table" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28817123, 0.6122311, 29.151289)
+
+[node name="Table2" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28817123, 0.6122311, 24.723024)
+
+[node name="Table3" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28817123, 0.6122311, 20.947092)
+
+[node name="Table4" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28817123, 0.6122311, 16.518827)
+
+[node name="Table5" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8901882, 0.6122311, 29.151289)
+
+[node name="Table6" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8901882, 0.6122311, 24.723024)
+
+[node name="Table7" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8901882, 0.6122311, 20.947092)
+
+[node name="Table8" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8901882, 0.6122311, 16.518827)
+
+[node name="Table9" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8930545, 0.6122311, 29.151289)
+
+[node name="Table10" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8930545, 0.6122311, 24.723024)
+
+[node name="Table11" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8930545, 0.6122311, 20.947092)
+
+[node name="Table12" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8930545, 0.6122311, 16.518827)
+
+[node name="Table13" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.208039, 0.6122311, 29.151289)
+
+[node name="Table14" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.208039, 0.6122311, 24.723024)
+
+[node name="Table15" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.208039, 0.6122311, 20.947092)
+
+[node name="Table16" parent="LvlObjs" instance=ExtResource("6_mi8ve")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.208039, 0.6122311, 16.518827)
+
+[node name="PzlBox1" type="RigidBody3D" parent="LvlObjs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.564609, 1.0110655, 36.2045)
+mass = 3.0
+physics_material_override = SubResource("PhysicsMaterial_1lbfv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LvlObjs/PzlBox1"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("BoxShape3D_ec8jc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LvlObjs/PzlBox1/CollisionShape3D"]
+material_override = ExtResource("7_lg5jh")
+mesh = SubResource("BoxMesh_1lbfv")
+skeleton = NodePath("../..")
+
+[node name="PzlBox2" type="RigidBody3D" parent="LvlObjs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.363344, 1.0110652, 36.817047)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LvlObjs/PzlBox2"]
+shape = SubResource("BoxShape3D_ec8jc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LvlObjs/PzlBox2/CollisionShape3D"]
+material_override = ExtResource("7_lg5jh")
+mesh = SubResource("BoxMesh_1lbfv")
+skeleton = NodePath("../..")
+
+[node name="Lvl5Door1Key" type="Area3D" parent="LvlObjs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8409472, 0.86693275, 24.771748)
+script = ExtResource("8_ec8jc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LvlObjs/Lvl5Door1Key"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.061645508, -0.16345215, 0)
+shape = SubResource("BoxShape3D_mi8ve")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LvlObjs/Lvl5Door1Key"]
+transform = Transform3D(0.55732155, 0, 0, 0, 0.0551309, 0, 0, 0, 0.36975425, 0.055263996, -0.16555393, 0)
+mesh = SubResource("BoxMesh_lg5jh")
+
+[node name="ToggleLightProto" parent="." instance=ExtResource("9_1lbfv")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.676226, 0.86048555, 12.315235)
+Enabled = false
+Default_Intensity = 0
+Enabled_Intensity = 10.0
+
+[node name="Lights" parent="ToggleLightProto" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.885153, 3.7851434, 5.2487106)
+
+[node name="Light1" parent="ToggleLightProto/Lights" index="0"]
+shadow_enabled = true
+omni_range = 20.448
+
+[connection signal="body_entered" from="LvlObjs/Lvl5Door1Key" to="." method="_on_lvl_5_door_1_key_body_entered"]
+
+[editable path="ToggleLightProto"]

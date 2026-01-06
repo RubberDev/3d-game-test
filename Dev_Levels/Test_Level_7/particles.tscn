@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://d4enh75imd6k8"]
+
+[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="1_bjkqe"]
+[ext_resource type="Texture2D" uid="uid://bu3cgltojw03i" path="res://addons/KenneyTextures/dark/texture_08.png" id="2_820hb"]
+[ext_resource type="PackedScene" uid="uid://yt0k61bpm64h" path="res://Particles/fire_01.tscn" id="3_262o0"]
+[ext_resource type="PackedScene" uid="uid://blmy1u35sksj3" path="res://Particles/fire_02.tscn" id="4_7hic8"]
+[ext_resource type="PackedScene" uid="uid://2pyyo0vsqolx" path="res://Particles/fire_03.tscn" id="5_6n0ju"]
+
+[sub_resource type="Environment" id="Environment_262o0"]
+background_mode = 1
+background_color = Color(0.5647059, 0.5647059, 0.5647059, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7x0kw"]
+albedo_texture = ExtResource("2_820hb")
+uv1_scale = Vector3(5, 5, 5)
+uv1_triplanar = true
+
+[node name="Particles" type="Node3D"]
+
+[node name="Env" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+environment = SubResource("Environment_262o0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(0.77869594, 0.35420433, -0.5178531, 0.34029424, 0.45499337, 0.82291, 0.52709806, -0.817019, 0.23376781, 0, 9.580469, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_bjkqe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19)
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(40, 0, 0, 0, 0.25, 0, 0, 0, 40, 0, 0, 0)
+use_collision = true
+size = Vector3(1.326416, 1, 1)
+material = SubResource("StandardMaterial3D_7x0kw")
+
+[node name="Fire01" parent="." instance=ExtResource("3_262o0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 1, 0)
+
+[node name="Fire02" parent="." instance=ExtResource("4_7hic8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0.7699063, 0)
+
+[node name="Fire03" parent="." instance=ExtResource("5_6n0ju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.8924518, 0)

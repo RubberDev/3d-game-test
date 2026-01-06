@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3ef2dnnqwwpp"]
+
+[ext_resource type="Material" uid="uid://dv8mmrc4c5blb" path="res://Materials/1 Debug/DarkCheckerTriplaner.tres" id="1_yoi7h"]
+[ext_resource type="PackedScene" uid="uid://dyw1mi7fo6m5y" path="res://Entities/angy_cube.tscn" id="2_sarb2"]
+[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="3_ah4il"]
+[ext_resource type="PackedScene" uid="uid://bw84wmlc2pv7x" path="res://Objects/Useful/bandage_roll.tscn" id="4_sarb2"]
+[ext_resource type="PackedScene" uid="uid://yt0k61bpm64h" path="res://Particles/fire_01.tscn" id="5_ah4il"]
+
+[node name="Kill_Yourself" type="Node3D"]
+
+[node name="Env" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Env"]
+transform = Transform3D(-0.6064465, -0.7951244, 0, 0.23041397, -0.17573823, 0.95709234, -0.76100725, 0.5804252, 0.28978357, -8.3207245, 6.284311, 0)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+material_override = ExtResource("1_yoi7h")
+use_collision = true
+
+[node name="AngyCube" parent="." instance=ExtResource("2_sarb2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+CUBE_DMG = -10
+DEBUG_ENABLED = true
+
+[node name="AngyCube2" parent="." instance=ExtResource("2_sarb2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4800856, 1, 0)
+CUBE_DMG = 50
+DEBUG_ENABLED = true
+
+[node name="Player" parent="." instance=ExtResource("3_ah4il")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14050007, 0.7891729, 3.5450094)
+
+[node name="AngyCube3" parent="." instance=ExtResource("2_sarb2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)
+CUBE_DMG = 5
+DEBUG_ENABLED = true
+DMG_OVER_TIME = true
+
+[node name="Fire01" parent="." instance=ExtResource("5_ah4il")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -3)
+
+[node name="BandageRoll2" parent="." instance=ExtResource("4_sarb2")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -3.6547432, 0.6296767, 3.4684987)

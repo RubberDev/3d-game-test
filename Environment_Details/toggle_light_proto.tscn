@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3 uid="uid://bf4wkce43o687"]
+
+[ext_resource type="Script" uid="uid://dv2af8febsiwe" path="res://Environment_Details/Scripts/toggle_light_proto.gd" id="1_aekct"]
+[ext_resource type="AudioStream" uid="uid://caqwom4bnqyml" path="res://AudioFX/Environment/Natural/LightSwitchOff.wav" id="2_axy4f"]
+[ext_resource type="AudioStream" uid="uid://bjsy6qdabapn4" path="res://AudioFX/Environment/Natural/LightSwitchOn.wav" id="3_825jb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_aekct"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mnsrw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ukbym"]
+size = Vector3(0.0712891, 0.82019, 0.510986)
+
+[sub_resource type="Animation" id="Animation_mnsrw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwitchPart:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0.785398)]
+}
+
+[sub_resource type="Animation" id="Animation_aekct"]
+resource_name = "ToggleOff"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwitchPart:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.153893, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.785398), Vector3(0, 0, -0.785398)]
+}
+
+[sub_resource type="Animation" id="Animation_axy4f"]
+resource_name = "ToggleOn"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwitchPart:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.133972, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.785398), Vector3(0, 0, 0.785398)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_axy4f"]
+_data = {
+&"RESET": SubResource("Animation_mnsrw"),
+&"ToggleOff": SubResource("Animation_aekct"),
+&"ToggleOn": SubResource("Animation_axy4f")
+}
+
+[node name="ToggleLightProto" type="StaticBody3D" groups=["Interactable"]]
+script = ExtResource("1_aekct")
+
+[node name="SwitchMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.039326575, 0, 0, 0, 0.4401977, 0, 0, 0, 0.2543191, 0, 0, 0)
+mesh = SubResource("BoxMesh_aekct")
+skeleton = NodePath("../LightTrig")
+
+[node name="SwitchPart" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.048064094, -0.03711453, 0, 0.04806408, 0.037114542, 0, 0, 0, 0.02544993, 0.038249936, -0.0009748771, 0.00014829884)
+mesh = SubResource("BoxMesh_mnsrw")
+skeleton = NodePath("../LightTrig")
+
+[node name="LightTrig" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.27007, 0, 0, 0, 0.56739604, 0, 0, 0, 0.465577, 0, 0, 0)
+shape = SubResource("BoxShape3D_ukbym")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="Light1" type="OmniLight3D" parent="Lights"]
+light_energy = 0.0
+omni_range = 2.55558
+
+[node name="Animations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_axy4f")
+}
+
+[node name="Sound" type="Node" parent="."]
+
+[node name="LightSwitchOff" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("2_axy4f")
+
+[node name="LightSwitchOn" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("3_825jb")
