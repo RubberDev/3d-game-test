@@ -1,9 +1,13 @@
+class_name Player
 extends CharacterBody3D
 
 
-var SPEED = 5.0
-var JUMP_VELOCITY = 4.5
-
+var SPEED = 2.5
+var JUMP_VELOCITY = 3.5
+var DEF_SPEED = 2.5
+var SP_SPEED = 5.0
+var SN_SPEED = 1.5
+var CR_SPEED = 1.0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -31,8 +35,27 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	# FP Camera rotation
 	if event is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			rotate_y(-event.relative.x * 0.005)
 			$PlyrCam.rotate_x(-event.relative.y * 0.005)
 			$PlyrCam.rotation.x = clamp($PlyrCam.rotation.x, -PI/2, PI/2)
+	
+	# Sprinting
+	if Input.is_action_pressed("Sprint"):
+		SPEED = SP_SPEED
+	elif Input.is_action_just_released("Sprint"):
+		SPEED = DEF_SPEED
+	
+	# Sneaking
+	if Input.is_action_just_pressed("Sneak"):
+		SPEED = SN_SPEED
+	elif Input.is_action_just_released("Sneak"):
+		SPEED = DEF_SPEED
+	
+	# Crouching
+	if Input.is_action_pressed("Crouch"):
+		SPEED = CR_SPEED
+	elif Input.is_action_just_released("Crouch"):
+		SPEED = DEF_SPEED

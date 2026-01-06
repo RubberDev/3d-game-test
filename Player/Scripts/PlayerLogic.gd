@@ -1,4 +1,4 @@
-class_name Player
+class_name PlayerProto
 extends CharacterBody3D
 
 var SPEED = 3.5
