@@ -8,6 +8,9 @@ var DEF_SPEED = 2.5
 var SP_SPEED = 5.0
 var SN_SPEED = 1.5
 var CR_SPEED = 1.0
+var Crouched : bool = false
+
+@export var Health = 100
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -30,10 +33,12 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+		if Crouched == false:
+			$AnimationPlayer.play("Idle")
 
 	move_and_slide()
 
-
+# Input
 func _input(event: InputEvent) -> void:
 	# FP Camera rotation
 	if event is InputEventMouseMotion:
@@ -57,5 +62,25 @@ func _input(event: InputEvent) -> void:
 	# Crouching
 	if Input.is_action_pressed("Crouch"):
 		SPEED = CR_SPEED
+		Crouched = true
+		$PlyrCollision.set_deferred("disabled", true)
+		$CrouchCollision.set_deferred("disabled", false)
 	elif Input.is_action_just_released("Crouch"):
 		SPEED = DEF_SPEED
+		Crouched = false
+		$PlyrCollision.set_deferred("disabled", false)
+		$CrouchCollision.set_deferred("disabled", true)
+
+# Player damage
+func Damage(dmgAmount : int):
+	if Health < 0:
+		Health = 0
+	
+	Health -= dmgAmount
+
+# Healing Player
+func Heal(healAmount : int):
+	if Health > 100:
+		Health = 100
+	
+	Health += healAmount
