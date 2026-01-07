@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://fgc2wjw78ptl"]
+[gd_scene load_steps=21 format=3 uid="uid://fgc2wjw78ptl"]
 
 [ext_resource type="Script" uid="uid://bgp4wgttebhwp" path="res://Dev_Levels/Test_Level_1/Scripts/test_level_1.gd" id="1_36p37"]
 [ext_resource type="Texture2D" uid="uid://dj2cwiekcdskw" path="res://addons/KenneyTextures/light/texture_06.png" id="2_8ojrh"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cl42ni6gf1etq" path="res://Models/Debug/dev_key_1.tscn" id="7_ml1yn"]
 [ext_resource type="PackedScene" uid="uid://cojplmxokqxtb" path="res://Models/Debug/dev_key_2.tscn" id="8_dqfr0"]
 [ext_resource type="Script" uid="uid://d50kg10m25pu" path="res://Dev_Levels/Test_Level_1/Scripts/key_cube_trigger.gd" id="9_wkp3r"]
+[ext_resource type="Script" uid="uid://c7hd3q22ebicl" path="res://Dev_Levels/Test_Level_1/control.gd" id="10_w6vlv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ib03"]
 albedo_texture = ExtResource("2_8ojrh")
@@ -138,5 +139,18 @@ shape = SubResource("BoxShape3D_kmhue")
 billboard = 1
 text = "When player walks through Area3D (KeyCubeTrigger), change KeyCube to blue. (This works)"
 autowrap_mode = 2
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 195.0
+offset_bottom = 40.0
+script = ExtResource("10_w6vlv")
+
+[node name="FPS" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS - "
 
 [connection signal="body_entered" from="KeyCubeTrigger" to="KeyCubeTrigger" method="_on_body_entered"]

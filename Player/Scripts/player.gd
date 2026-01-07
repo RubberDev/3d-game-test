@@ -47,28 +47,40 @@ func _input(event: InputEvent) -> void:
 			$PlyrCam.rotation.x = clamp($PlyrCam.rotation.x, -PI/2, PI/2)
 	
 	# Sprinting
-	if Input.is_action_pressed("Sprint"):
+	if Input.is_action_pressed("Sprint") and Crouched == false:
 		SPEED = SP_SPEED
-	elif Input.is_action_just_released("Sprint"):
+	elif Input.is_action_just_released("Sprint") and Crouched == false:
 		SPEED = DEF_SPEED
 	
 	# Sneaking
-	if Input.is_action_just_pressed("Sneak"):
+	if Input.is_action_just_pressed("Sneak") and Crouched == false:
 		SPEED = SN_SPEED
-	elif Input.is_action_just_released("Sneak"):
+	elif Input.is_action_just_released("Sneak") and Crouched == false:
 		SPEED = DEF_SPEED
 	
 	# Crouching
-	if Input.is_action_pressed("Crouch"):
-		SPEED = CR_SPEED
-		Crouched = true
-		$PlyrCollision.set_deferred("disabled", true)
-		$CrouchCollision.set_deferred("disabled", false)
-	elif Input.is_action_just_released("Crouch"):
-		SPEED = DEF_SPEED
-		Crouched = false
-		$PlyrCollision.set_deferred("disabled", false)
-		$CrouchCollision.set_deferred("disabled", true)
+	if Input.is_action_just_pressed("Crouch"):
+		if Crouched == false:
+			SPEED = CR_SPEED
+			Crouched = true
+			JUMP_VELOCITY = 1.5
+			$AnimationPlayer.play("Crouching")
+			$PlyrCollision.set_deferred("disabled", true)
+			$CrouchCollision.set_deferred("disabled", false)
+			print(Crouched)
+		else:
+			SPEED = DEF_SPEED
+			Crouched = false
+			JUMP_VELOCITY = 3.5
+			$AnimationPlayer.play("Idle")
+			$PlyrCollision.set_deferred("disabled", false)
+			$CrouchCollision.set_deferred("disabled", true)
+	
+	if Input.is_action_just_pressed("Pause"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 # Player damage
 func Damage(dmgAmount : int):
