@@ -36,6 +36,13 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	
+	# Pushing physics objects
+	var Push_Force = 0.50
+	for i in get_slide_collision_count():
+		var c = get_slide_collision(i)
+		if c.get_collider() is RigidBody3D:
+			c.get_collider().apply_central_impulse(-c.get_normal() * Push_Force)
 
 # Input
 func _input(event: InputEvent) -> void:
@@ -65,17 +72,19 @@ func _input(event: InputEvent) -> void:
 			Crouched = true
 			JUMP_VELOCITY = 1.5
 			$AnimationPlayer.play("Crouching")
+			$PlyrCollision/PlyrMesh.hide()
 			$PlyrCollision.set_deferred("disabled", true)
 			$CrouchCollision.set_deferred("disabled", false)
-			print(Crouched)
 		else:
 			SPEED = DEF_SPEED
 			Crouched = false
 			JUMP_VELOCITY = 3.5
 			$AnimationPlayer.play("Idle")
+			$PlyrCollision/PlyrMesh.show()
 			$PlyrCollision.set_deferred("disabled", false)
 			$CrouchCollision.set_deferred("disabled", true)
 	
+	# Temporary, use for closing
 	if Input.is_action_just_pressed("Pause"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

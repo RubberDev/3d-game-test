@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://fgc2wjw78ptl"]
+[gd_scene load_steps=22 format=3 uid="uid://fgc2wjw78ptl"]
 
 [ext_resource type="Script" uid="uid://bgp4wgttebhwp" path="res://Dev_Levels/Test_Level_1/Scripts/test_level_1.gd" id="1_36p37"]
 [ext_resource type="Texture2D" uid="uid://dj2cwiekcdskw" path="res://addons/KenneyTextures/light/texture_06.png" id="2_8ojrh"]
 [ext_resource type="PackedScene" uid="uid://c8wbe2rihnhl3" path="res://Player/Player.tscn" id="2_kmhue"]
+[ext_resource type="PackedScene" uid="uid://ba3xsrh4k8mth" path="res://Player/UI/pause_menu.tscn" id="2_vcru8"]
 [ext_resource type="Texture2D" uid="uid://dgbtg8q2oo7gw" path="res://addons/KenneyTextures/green/texture_09.png" id="4_bb2r0"]
 [ext_resource type="PackedScene" uid="uid://dfgks143esy4c" path="res://Models/door_ref.tscn" id="5_d6daj"]
 [ext_resource type="PackedScene" uid="uid://geklejscut5a" path="res://Models/Debug/table_ref.tscn" id="6_4wwp2"]
@@ -45,6 +46,10 @@ size = Vector3(2.59814, 1.9472, 0.0532227)
 
 [node name="TestLevel1" type="Node3D"]
 script = ExtResource("1_36p37")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_vcru8")]
 
 [node name="Player" parent="." instance=ExtResource("2_kmhue")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
