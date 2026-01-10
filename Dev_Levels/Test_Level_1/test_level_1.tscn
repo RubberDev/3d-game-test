@@ -48,6 +48,7 @@ size = Vector3(2.59814, 1.9472, 0.0532227)
 script = ExtResource("1_36p37")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_vcru8")]
 

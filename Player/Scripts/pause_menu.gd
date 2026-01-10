@@ -16,6 +16,7 @@ func _input(_event: InputEvent) -> void:
 func _on_resume_pressed() -> void:
 	get_tree().paused = false
 	self.hide()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 # Quit game (Add confirmation later maybe)
 func _on_quit_pressed() -> void:
