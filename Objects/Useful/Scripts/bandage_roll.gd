@@ -7,7 +7,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Player:
 		if body.Health < 100:
 			if Usable == true:
-				body.healed(10)
+				body.heal(10)
 				$SFX/UseBandages.play()
 				self.hide()
 			else:

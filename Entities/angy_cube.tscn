@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dyw1mi7fo6m5y"]
 
 [ext_resource type="Script" uid="uid://c3073pmq66nol" path="res://Entities/Scripts/angy_cube_behavior.gd" id="1_7fsx6"]
-[ext_resource type="Material" uid="uid://b4wd0ylaxc2du" path="res://Materials/DebugMaterials/KeyTestClosed.tres" id="2_xs5mb"]
+[ext_resource type="Material" uid="uid://b4wd0ylaxc2du" path="res://Materials/1 Debug/KeyTestClosed.tres" id="2_xs5mb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iogur"]
 size = Vector3(0.6014404, 1, 0.54193115)

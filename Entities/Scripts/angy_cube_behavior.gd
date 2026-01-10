@@ -17,7 +17,7 @@ func _on_body_entered(body: Node3D) -> void:
 	if body is Player:
 		if DMG_OVER_TIME == false:
 			print("Angy Cube >:3")
-			body.damaged(CUBE_DMG)
+			body.damage(CUBE_DMG)
 			print(body.Health)
 		elif DMG_OVER_TIME == true:
 			_on_timer_timeout()
@@ -27,4 +27,4 @@ func _on_timer_timeout() -> void:
 	for body in get_overlapping_bodies():
 		if body is Player:
 			if DMG_OVER_TIME == true:
-				body.damaged(CUBE_DMG)
+				body.damage(CUBE_DMG)

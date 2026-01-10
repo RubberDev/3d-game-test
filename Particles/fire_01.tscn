@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://yt0k61bpm64h"]
 
-[ext_resource type="Texture2D" uid="uid://88uraeg5k2n1" path="res://Textures/blackSmoke00.png" id="1_52fe8"]
+[ext_resource type="Texture2D" uid="uid://88uraeg5k2n1" path="res://Textures/Smoke/blackSmoke00.png" id="1_52fe8"]
 [ext_resource type="Script" uid="uid://cvjktvsouseyc" path="res://Particles/Scripts/fire_01.gd" id="1_hvbrk"]
-[ext_resource type="Texture2D" uid="uid://c1a6u5ii66p3c" path="res://Textures/blackSmoke01.png" id="2_viyv2"]
+[ext_resource type="Texture2D" uid="uid://c1a6u5ii66p3c" path="res://Textures/Smoke/blackSmoke01.png" id="2_viyv2"]
 [ext_resource type="AudioStream" uid="uid://bny4xim8njpo5" path="res://AudioFX/Burnt.wav" id="5_h166r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8cjh"]

@@ -1,12 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3ef2dnnqwwpp"]
+[gd_scene load_steps=7 format=3 uid="uid://b3ef2dnnqwwpp"]
 
+[ext_resource type="PackedScene" uid="uid://ba3xsrh4k8mth" path="res://Player/UI/pause_menu.tscn" id="1_gij6u"]
 [ext_resource type="Material" uid="uid://dv8mmrc4c5blb" path="res://Materials/1 Debug/DarkCheckerTriplaner.tres" id="1_yoi7h"]
 [ext_resource type="PackedScene" uid="uid://dyw1mi7fo6m5y" path="res://Entities/angy_cube.tscn" id="2_sarb2"]
-[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="3_ah4il"]
 [ext_resource type="PackedScene" uid="uid://bw84wmlc2pv7x" path="res://Objects/Useful/bandage_roll.tscn" id="4_sarb2"]
 [ext_resource type="PackedScene" uid="uid://yt0k61bpm64h" path="res://Particles/fire_01.tscn" id="5_ah4il"]
+[ext_resource type="PackedScene" uid="uid://c8wbe2rihnhl3" path="res://Player/Player.tscn" id="5_gij6u"]
 
 [node name="Kill_Yourself" type="Node3D"]
+
+[node name="PauseMenu" parent="." instance=ExtResource("1_gij6u")]
+
+[node name="Player" parent="." instance=ExtResource("5_gij6u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
 
 [node name="Env" type="Node" parent="."]
 
@@ -30,9 +36,6 @@ DEBUG_ENABLED = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4800856, 1, 0)
 CUBE_DMG = 50
 DEBUG_ENABLED = true
-
-[node name="Player" parent="." instance=ExtResource("3_ah4il")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14050007, 0.7891729, 3.5450094)
 
 [node name="AngyCube3" parent="." instance=ExtResource("2_sarb2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)

@@ -11,6 +11,12 @@ func _input(_event: InputEvent) -> void:
 		else:
 			self.hide()
 			get_tree().paused = false
+	
+	if Input.is_action_just_pressed("Pause"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 # Resume game, close pause menu
 func _on_resume_pressed() -> void:
