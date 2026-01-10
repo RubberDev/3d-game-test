@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://c8wbe2rihnhl3"]
+[gd_scene load_steps=19 format=3 uid="uid://c8wbe2rihnhl3"]
 
 [ext_resource type="Script" uid="uid://dyltt7he46shv" path="res://Player/Scripts/player.gd" id="1_3qydi"]
 [ext_resource type="Texture2D" uid="uid://by05bbrjrv7o3" path="res://Textures/crosshair007.png" id="2_q3lat"]
+[ext_resource type="Script" uid="uid://cmoffw4vnlf0i" path="res://Player/Scripts/player_interface.gd" id="2_tok1r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q3lat"]
 bg_color = Color(0.52906644, 0.52906674, 0.5290667, 0.24705882)
@@ -14,7 +15,6 @@ ProgressBar/styles/background = SubResource("StyleBoxFlat_q3lat")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_tok1r")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddoul"]
-bg_color = Color(0.5294118, 0.5294118, 0.5294118, 0.24705882)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8g4oa"]
 bg_color = Color(0.37684622, 0.6390725, 0.7621823, 1)
@@ -197,6 +197,7 @@ script = ExtResource("1_3qydi")
 
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 0
+script = ExtResource("2_tok1r")
 
 [node name="Crosshair" type="Control" parent="Interface"]
 z_index = -1
@@ -249,7 +250,7 @@ offset_top = 619.0
 offset_right = 309.0
 offset_bottom = 648.0
 theme = SubResource("Theme_6ysni")
-step = 1.0
+step = 0.1
 value = 100.0
 
 [node name="Sound" type="Node" parent="."]

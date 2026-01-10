@@ -9,6 +9,7 @@ var SP_SPEED = 5.0
 var SN_SPEED = 1.5
 var CR_SPEED = 1.0
 var Crouched : bool = false
+var SENSITIVITY = 0.005
 
 @export var Health = 100
 
@@ -49,15 +50,20 @@ func _input(event: InputEvent) -> void:
 	# FP Camera rotation
 	if event is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			rotate_y(-event.relative.x * 0.005)
-			$PlyrCam.rotate_x(-event.relative.y * 0.005)
+			rotate_y(-event.relative.x * SENSITIVITY)
+			$PlyrCam.rotate_x(-event.relative.y * SENSITIVITY)
 			$PlyrCam.rotation.x = clamp($PlyrCam.rotation.x, -PI/2, PI/2)
 	
 	# Sprinting
 	if Input.is_action_pressed("Sprint") and Crouched == false:
-		SPEED = SP_SPEED
-	elif Input.is_action_just_released("Sprint") and Crouched == false:
+		if $Interface/Attributes/StaminaBar.value > 0:
+			SPEED = SP_SPEED
+		elif $Interface/Attributes/StaminaBar.value <= 0:
+			SPEED = SN_SPEED
+		$Interface/Attributes/StaminaBar.show()
+	else:
 		SPEED = DEF_SPEED
+		$Interface/Attributes/StaminaBar.hide()
 	
 	# Sneaking
 	if Input.is_action_just_pressed("Sneak") and Crouched == false:
@@ -87,14 +93,21 @@ func _input(event: InputEvent) -> void:
 
 # Player damage
 func damage(dmgAmount : int):
+	Health -= dmgAmount
+	
 	if Health < 0:
 		Health = 0
 	
-	Health -= dmgAmount
-
-# Healing Player
-func heal(healAmount : int):
 	if Health > 100:
 		Health = 100
 	
+	$Interface/Attributes/HealthBar.value = Health
+
+# Healing Player
+func heal(healAmount : int):
 	Health += healAmount
+	
+	if Health > 100:
+		Health = 100
+	
+	$Interface/Attributes/HealthBar.value = Health
