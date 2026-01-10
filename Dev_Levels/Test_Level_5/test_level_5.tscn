@@ -1,14 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://b3kcxiimh0w6m"]
+[gd_scene load_steps=18 format=3 uid="uid://b3kcxiimh0w6m"]
 
 [ext_resource type="Script" uid="uid://x8xtj141tn4c" path="res://Dev_Levels/Test_Level_5/Scripts/test_level_5.gd" id="1_667g5"]
 [ext_resource type="Material" uid="uid://dv8mmrc4c5blb" path="res://Materials/1 Debug/DarkCheckerTriplaner.tres" id="1_kmjpy"]
 [ext_resource type="Material" uid="uid://qqu0grfi7crc" path="res://Materials/1 Debug/LightCheckerTriplaner.tres" id="2_667g5"]
-[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="3_686wi"]
 [ext_resource type="PackedScene" uid="uid://dyw1mi7fo6m5y" path="res://Entities/angy_cube.tscn" id="5_686wi"]
 [ext_resource type="PackedScene" uid="uid://geklejscut5a" path="res://Models/Debug/table_ref.tscn" id="6_mi8ve"]
 [ext_resource type="Material" uid="uid://bf5kflr8uvoax" path="res://Materials/1 Debug/GreenCheckerTriplaner.tres" id="7_lg5jh"]
 [ext_resource type="Script" uid="uid://dc4u2mipdi4c2" path="res://Dev_Levels/Test_Level_5/Scripts/lvl_5_door_1_key.gd" id="8_ec8jc"]
+[ext_resource type="PackedScene" uid="uid://ba3xsrh4k8mth" path="res://Player/UI/pause_menu.tscn" id="9_1bvhp"]
 [ext_resource type="PackedScene" uid="uid://bf4wkce43o687" path="res://Environment_Details/toggle_light_proto.tscn" id="9_1lbfv"]
+[ext_resource type="PackedScene" uid="uid://c8wbe2rihnhl3" path="res://Player/Player.tscn" id="9_cfx0n"]
 
 [sub_resource type="Environment" id="Environment_kmjpy"]
 background_mode = 1
@@ -23,6 +24,9 @@ friction = 0.5
 
 [sub_resource type="BoxMesh" id="BoxMesh_1lbfv"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cfx0n"]
+friction = 0.5
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_mi8ve"]
 size = Vector3(1.3210449, 0.032470703, 1)
 
@@ -30,9 +34,6 @@ size = Vector3(1.3210449, 0.032470703, 1)
 
 [node name="Test_Level_5" type="Node3D"]
 script = ExtResource("1_667g5")
-
-[node name="Player" parent="." instance=ExtResource("3_686wi")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.61971, -0.298544, -0.0361927)
 
 [node name="AngyCube" parent="." instance=ExtResource("5_686wi")]
 transform = Transform3D(4.5689335, 0, 0, 0, 1, 0, 0, 0, 6.0557685, 12.073, -8.299045, 7.9037614)
@@ -272,6 +273,8 @@ skeleton = NodePath("../..")
 
 [node name="PzlBox2" type="RigidBody3D" parent="LvlObjs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.363344, 1.0110652, 36.817047)
+mass = 3.0
+physics_material_override = SubResource("PhysicsMaterial_cfx0n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LvlObjs/PzlBox2"]
 shape = SubResource("BoxShape3D_ec8jc")
@@ -294,7 +297,7 @@ transform = Transform3D(0.55732155, 0, 0, 0, 0.0551309, 0, 0, 0, 0.36975425, 0.0
 mesh = SubResource("BoxMesh_lg5jh")
 
 [node name="ToggleLightProto" parent="." instance=ExtResource("9_1lbfv")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9.676226, 0.86048555, 12.315235)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 14.126721, 0.86048555, 12.315235)
 Enabled = false
 Default_Intensity = 0
 Enabled_Intensity = 10.0
@@ -303,8 +306,16 @@ Enabled_Intensity = 10.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.885153, 3.7851434, 5.2487106)
 
 [node name="Light1" parent="ToggleLightProto/Lights" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9073486e-06, 0, -14.749712)
 shadow_enabled = true
 omni_range = 20.448
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("9_1bvhp")]
+
+[node name="Player" parent="." instance=ExtResource("9_cfx0n")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -7, 1, 0)
 
 [connection signal="body_entered" from="LvlObjs/Lvl5Door1Key" to="." method="_on_lvl_5_door_1_key_body_entered"]
 

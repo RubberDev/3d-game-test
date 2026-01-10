@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlvqf8jj8wfru"]
+[gd_scene load_steps=6 format=3 uid="uid://dlvqf8jj8wfru"]
 
 [ext_resource type="PackedScene" uid="uid://c08ui0nt4ys8p" path="res://Models/GameplayTest2.glb" id="2_obwyr"]
-[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="2_xyjtw"]
+[ext_resource type="PackedScene" uid="uid://c8wbe2rihnhl3" path="res://Player/Player.tscn" id="3_obwyr"]
 [ext_resource type="PackedScene" uid="uid://dfgks143esy4c" path="res://Models/door_ref.tscn" id="3_xyjtw"]
+[ext_resource type="PackedScene" uid="uid://ba3xsrh4k8mth" path="res://Player/UI/pause_menu.tscn" id="4_b8l8l"]
 
 [sub_resource type="Environment" id="Environment_obwyr"]
 
@@ -17,11 +18,15 @@ environment = SubResource("Environment_obwyr")
 transform = Transform3D(-0.6154566, 0.7620272, -0.20131502, 0.0868211, 0.31941316, 0.94362986, 0.7833743, 0.5632848, -0.2627449, -16.20465, 100.039856, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("2_xyjtw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7738637, 32.247337, 0.18524596)
-
 [node name="GameplayTest3" parent="." instance=ExtResource("2_obwyr")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="DoorRef" parent="." instance=ExtResource("3_xyjtw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.661457, -19.891954, 24.988066)
+
+[node name="Player" parent="." instance=ExtResource("3_obwyr")]
+transform = Transform3D(-0.045519873, 0, -0.9989634, 0, 1, 0, 0.9989634, 0, -0.045519873, 1.6066022, 31.547693, -0.18031394)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("4_b8l8l")]

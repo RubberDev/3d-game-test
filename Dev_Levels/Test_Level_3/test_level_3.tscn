@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ct2bysta120gt"]
+[gd_scene load_steps=10 format=3 uid="uid://ct2bysta120gt"]
 
 [ext_resource type="Material" uid="uid://dv8mmrc4c5blb" path="res://Materials/1 Debug/DarkCheckerTriplaner.tres" id="1_g1upj"]
 [ext_resource type="Script" uid="uid://c8eauffdl10p8" path="res://Dev_Levels/Test_Level_3/Scripts/test_level_3.gd" id="1_q2l5j"]
@@ -6,7 +6,8 @@
 [ext_resource type="Material" uid="uid://qqu0grfi7crc" path="res://Materials/1 Debug/LightCheckerTriplaner.tres" id="2_tcq2e"]
 [ext_resource type="PackedScene" uid="uid://geklejscut5a" path="res://Models/Debug/table_ref.tscn" id="3_vt1il"]
 [ext_resource type="PackedScene" uid="uid://dfgks143esy4c" path="res://Models/door_ref.tscn" id="4_0sdam"]
-[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="5_qfh6y"]
+[ext_resource type="PackedScene" uid="uid://c8wbe2rihnhl3" path="res://Player/Player.tscn" id="7_kbn74"]
+[ext_resource type="PackedScene" uid="uid://ba3xsrh4k8mth" path="res://Player/UI/pause_menu.tscn" id="8_874su"]
 
 [sub_resource type="Environment" id="Environment_tcq2e"]
 
@@ -31,12 +32,6 @@ use_collision = true
 
 [node name="ToggleLightProto" parent="Geometry/BaseRoom/Lights" instance=ExtResource("2_i2rmg")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.18451, 1.88884, 3.10639)
-
-[node name="LightSwitch" parent="Geometry/BaseRoom/Lights/ToggleLightProto" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.12795, 0)
-
-[node name="SwitchPart" parent="Geometry/BaseRoom/Lights/ToggleLightProto/LightSwitch/LightTrig" index="1"]
-transform = Transform3D(0.063566305, -0.031770796, 0, 0.06356629, 0.031770807, 0, 0, 0, 0.0546632, 0.0301164, -0.00171816, 0.000318527)
 
 [node name="Light1" parent="Geometry/BaseRoom/Lights/ToggleLightProto/Lights" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.32024, 4.03937, 2.83747)
@@ -111,7 +106,11 @@ material = ExtResource("1_g1upj")
 [node name="OmniLight3D" type="OmniLight3D" parent="Geometry/HallwayEntrance/Light"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.49755, 4.33672, -2.44431)
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("5_qfh6y")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.5522, 1.91507, -2.56361)
+[node name="Player" parent="." instance=ExtResource("7_kbn74")]
+transform = Transform3D(-0.013037236, 0, -0.999915, 0, 1, 0, 0.999915, 0, -0.013037236, -8.611086, 2.700885, -2.4925113)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("8_874su")]
 
 [editable path="Geometry/BaseRoom/Lights/ToggleLightProto"]

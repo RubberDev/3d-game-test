@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bw84cc8s0gp3v"]
+[gd_scene load_steps=7 format=3 uid="uid://bw84cc8s0gp3v"]
 
 [ext_resource type="Material" uid="uid://dv8mmrc4c5blb" path="res://Materials/1 Debug/DarkCheckerTriplaner.tres" id="1_pm57e"]
 [ext_resource type="PackedScene" uid="uid://dfgks143esy4c" path="res://Models/door_ref.tscn" id="2_a4srh"]
-[ext_resource type="PackedScene" uid="uid://cbwhu5nvispoc" path="res://Player/PlayerPrototype.tscn" id="3_kr6kc"]
 [ext_resource type="PackedScene" uid="uid://jmqk0xp2xuu" path="res://Objects/Buildings/door_01.tscn" id="4_l4baf"]
+[ext_resource type="PackedScene" uid="uid://c8wbe2rihnhl3" path="res://Player/Player.tscn" id="4_semr6"]
+[ext_resource type="PackedScene" uid="uid://ba3xsrh4k8mth" path="res://Player/UI/pause_menu.tscn" id="5_fllx6"]
 
 [sub_resource type="Environment" id="Environment_kr6kc"]
 
@@ -30,8 +31,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.446195, 0.37265337, -4.365
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.629348, 0.37352663, 0.42369932)
 Locked = true
 
-[node name="Player" parent="." instance=ExtResource("3_kr6kc")]
-
 [node name="DoorRef3" parent="." instance=ExtResource("4_l4baf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.33499455, 5)
 Locked = true
+
+[node name="Player" parent="." instance=ExtResource("4_semr6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14531493, 1.5, 0.49368396)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_fllx6")]

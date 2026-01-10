@@ -17,6 +17,14 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$AnimationPlayer.play("Idle")
 
+func _process(_delta: float) -> void:
+	# Handles decreasing and increasing stamina
+	if Input.is_action_pressed("Sprint"):
+		if Crouched == false:
+			$Interface/Attributes/StaminaBar.value -= 0.1
+	else:
+		$Interface/Attributes/StaminaBar.value += 0.1
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -39,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# Pushing physics objects
-	var Push_Force = 0.50
+	var Push_Force = 0.30
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody3D:
@@ -61,7 +69,7 @@ func _input(event: InputEvent) -> void:
 		elif $Interface/Attributes/StaminaBar.value <= 0:
 			SPEED = SN_SPEED
 		$Interface/Attributes/StaminaBar.show()
-	else:
+	elif Input.is_action_just_released("Sprint") and Crouched == false:
 		SPEED = DEF_SPEED
 		$Interface/Attributes/StaminaBar.hide()
 	
@@ -89,6 +97,13 @@ func _input(event: InputEvent) -> void:
 			$PlyrCollision/PlyrMesh.show()
 			$PlyrCollision.set_deferred("disabled", false)
 			$CrouchCollision.set_deferred("disabled", true)
+	
+	# Interaction
+	if Input.is_action_just_pressed("Interact"):
+		if $PlyrCam/RayCast3D.is_colliding():
+			var Collider = $PlyrCam/RayCast3D.get_collider()
+			if Collider.has_method("Interact"):
+				Collider.Interact()
 	
 
 # Player damage

@@ -258,6 +258,9 @@ value = 100.0
 [node name="PlyrCam" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66122687, 0)
 
+[node name="RayCast3D" type="RayCast3D" parent="PlyrCam"]
+target_position = Vector3(0, 0, -1.5)
+
 [node name="PlyrCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_jdikb")
 
