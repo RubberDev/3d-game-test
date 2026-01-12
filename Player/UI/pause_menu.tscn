@@ -219,3 +219,4 @@ offset_bottom = 658.0
 [connection signal="value_changed" from="Settings/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="item_selected" from="Settings/VBoxContainer/WindowModes" to="." method="_on_window_modes_item_selected"]
 [connection signal="item_selected" from="Settings/VBoxContainer/Anti-Aliasing" to="." method="_on_atni_aliasing_item_selected"]
+[connection signal="item_selected" from="Settings/VBoxContainer/ShadowQuality" to="." method="_on_shadow_quality_item_selected"]

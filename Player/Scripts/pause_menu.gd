@@ -67,3 +67,15 @@ func _on_atni_aliasing_item_selected(index: int) -> void:
 		4:
 			get_viewport().msaa_3d = Viewport.MSAA_DISABLED
 			get_viewport().use_taa = false
+
+# Shadow resolution
+func _on_shadow_quality_item_selected(index: int) -> void:
+	match index:
+		0:
+			RenderingServer.directional_shadow_atlas_set_size(8192, true)
+		1:
+			RenderingServer.directional_shadow_atlas_set_size(4096, true)
+		2:
+			RenderingServer.directional_shadow_atlas_set_size(2048, true)
+		3:
+			RenderingServer.directional_shadow_atlas_set_size(1024, true)
