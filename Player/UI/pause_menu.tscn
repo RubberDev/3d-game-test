@@ -159,7 +159,7 @@ popup/item_0/id = 0
 layout_mode = 2
 text = "Anti-Aliasing"
 
-[node name="Atni-Aliasing" type="OptionButton" parent="Settings/VBoxContainer"]
+[node name="Anti-Aliasing" type="OptionButton" parent="Settings/VBoxContainer"]
 layout_mode = 2
 selected = 4
 item_count = 5
@@ -218,4 +218,4 @@ offset_bottom = 658.0
 [connection signal="pressed" from="MainP/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="item_selected" from="Settings/VBoxContainer/WindowModes" to="." method="_on_window_modes_item_selected"]
-[connection signal="item_selected" from="Settings/VBoxContainer/Atni-Aliasing" to="." method="_on_atni_aliasing_item_selected"]
+[connection signal="item_selected" from="Settings/VBoxContainer/Anti-Aliasing" to="." method="_on_atni_aliasing_item_selected"]
