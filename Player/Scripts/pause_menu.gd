@@ -1,5 +1,7 @@
 extends Control
 
+var save_path = "user://settingsInfo.save"
+
 func _ready() -> void:
 	$MainP.hide()
 	$Settings.hide()
@@ -42,6 +44,10 @@ func _on_close_settings_pressed() -> void:
 # Quit to the debug menu
 func _on_quit_2_debug_pressed() -> void:
 	get_tree().change_scene_to_file("res://TitleScreens/DebugTitleScr/DebugTitleScreen.tscn")
+
+
+
+
 
 # Volume
 var bus = AudioServer.get_bus_index("Master")
@@ -98,3 +104,17 @@ func _on_scaling_item_selected(index: int) -> void:
 			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_FSR)
 		2:
 			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_BILINEAR)
+
+
+
+func save_info():
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_var(AudioServer.get_bus_volume_db(bus))
+	file.store_var(DisplayServer.window_get_mode())
+	file.store_var(get_viewport().msaa_3d)
+	file.store_var(get_viewport().use_taa)
+	#file.store_var(RenderingServer.)
+	#file.store_var(RenderingServer.viewport_scaling)
+
+func load_info():
+	pass
