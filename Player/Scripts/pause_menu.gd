@@ -4,6 +4,7 @@ func _ready() -> void:
 	$MainP.hide()
 	$Settings.hide()
 
+# Pausing
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Pause"):
 		if get_tree().paused == false:
@@ -33,6 +34,10 @@ func _on_quit_pressed() -> void:
 # Settings button
 func _on_settings_pressed() -> void:
 	$Settings.show()
+
+# Close settings
+func _on_close_settings_pressed() -> void:
+	$Settings.hide()
 
 # Volume
 var bus = AudioServer.get_bus_index("Master")
