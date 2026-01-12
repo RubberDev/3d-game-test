@@ -39,3 +39,31 @@ var bus = AudioServer.get_bus_index("Master")
 func _on_volume_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(bus, linear_to_db(value))
 	$Settings/VBoxContainer/VolumeLabel.text = "Volume: " + str(value*100)
+
+# Window modes
+func _on_window_modes_item_selected(index: int) -> void:
+	match index:
+		0:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		1:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		2:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+
+# Anti-aliasing
+func _on_atni_aliasing_item_selected(index: int) -> void:
+	match index:
+		0:
+			get_viewport().msaa_3d = Viewport.MSAA_8X
+			get_viewport().use_taa = false
+		1:
+			get_viewport().msaa_3d = Viewport.MSAA_4X
+			get_viewport().use_taa = false
+		2:
+			get_viewport().msaa_3d = Viewport.MSAA_2X
+			get_viewport().use_taa = false
+		3:
+			get_viewport().use_taa = true
+		4:
+			get_viewport().msaa_3d = Viewport.MSAA_DISABLED
+			get_viewport().use_taa = false

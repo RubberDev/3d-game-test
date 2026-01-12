@@ -101,8 +101,9 @@ vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
 layout_mode = 0
+offset_left = 14.0
 offset_top = 72.0
-offset_right = 554.0
+offset_right = 547.0
 offset_bottom = 658.0
 
 [node name="VolumeLabel" type="Label" parent="Settings/VBoxContainer"]
@@ -158,7 +159,7 @@ popup/item_0/id = 0
 layout_mode = 2
 text = "Anti-Aliasing"
 
-[node name="OptionButton" type="OptionButton" parent="Settings/VBoxContainer"]
+[node name="Atni-Aliasing" type="OptionButton" parent="Settings/VBoxContainer"]
 layout_mode = 2
 selected = 4
 item_count = 5
@@ -173,14 +174,48 @@ popup/item_3/id = 3
 popup/item_4/text = "Disabled"
 popup/item_4/id = 4
 
+[node name="ShadowLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Shadow Quality"
+
+[node name="ShadowQuality" type="OptionButton" parent="Settings/VBoxContainer"]
+layout_mode = 2
+selected = 1
+item_count = 4
+popup/item_0/text = "High"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Low"
+popup/item_2/id = 2
+popup/item_3/text = "Terribly Low"
+popup/item_3/id = 3
+
+[node name="ScalingLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Scaling"
+
+[node name="Scaling" type="OptionButton" parent="Settings/VBoxContainer"]
+layout_mode = 2
+selected = 2
+item_count = 3
+popup/item_0/text = "FSR 2.2"
+popup/item_0/id = 0
+popup/item_1/text = "FSR 1.0"
+popup/item_1/id = 1
+popup/item_2/text = "Bilinear"
+popup/item_2/id = 2
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="Settings"]
 layout_mode = 0
-offset_left = 554.0
+offset_left = 563.0
 offset_top = 72.0
-offset_right = 1108.0
+offset_right = 1092.0
 offset_bottom = 658.0
 
 [connection signal="pressed" from="MainP/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MainP/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MainP/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="value_changed" from="Settings/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
+[connection signal="item_selected" from="Settings/VBoxContainer/WindowModes" to="." method="_on_window_modes_item_selected"]
+[connection signal="item_selected" from="Settings/VBoxContainer/Atni-Aliasing" to="." method="_on_atni_aliasing_item_selected"]
