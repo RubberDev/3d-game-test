@@ -79,3 +79,13 @@ func _on_shadow_quality_item_selected(index: int) -> void:
 			RenderingServer.directional_shadow_atlas_set_size(2048, true)
 		3:
 			RenderingServer.directional_shadow_atlas_set_size(1024, true)
+
+# Scaling
+func _on_scaling_item_selected(index: int) -> void:
+	match index:
+		0:
+			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_FSR2)
+		1:
+			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_FSR)
+		2:
+			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_BILINEAR)
