@@ -39,6 +39,10 @@ func _on_settings_pressed() -> void:
 func _on_close_settings_pressed() -> void:
 	$Settings.hide()
 
+# Quit to the debug menu
+func _on_quit_2_debug_pressed() -> void:
+	get_tree().change_scene_to_file("res://TitleScreens/DebugTitleScr/DebugTitleScreen.tscn")
+
 # Volume
 var bus = AudioServer.get_bus_index("Master")
 func _on_volume_value_changed(value: float) -> void:
