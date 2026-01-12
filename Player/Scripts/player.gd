@@ -13,10 +13,12 @@ var SENSITIVITY = 0.005
 
 @export var Health = 100
 
+# When game first launches
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	$AnimationPlayer.play("Idle")
 
+# Constantly running
 func _process(_delta: float) -> void:
 	# Handles decreasing and increasing stamina
 	if Input.is_action_pressed("Sprint"):
@@ -25,10 +27,12 @@ func _process(_delta: float) -> void:
 	else:
 		$Interface/Attributes/StaminaBar.value += 0.1
 
+# Movement
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
 
 	# Handle jump.
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
@@ -37,12 +41,15 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir := Input.get_vector("Left", "Right", "Forward", "Back")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var vel2d := Vector2(velocity.x, velocity.z)
+	var DEACC : float = SPEED * 0.1
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		vel2d = vel2d.move_toward(Vector2.ZERO, DEACC)
+		velocity.x = vel2d.x
+		velocity.z = vel2d.y
 
 	move_and_slide()
 	
@@ -104,7 +111,6 @@ func _input(event: InputEvent) -> void:
 			var Collider = $PlyrCam/RayCast3D.get_collider()
 			if Collider.has_method("Interact"):
 				Collider.Interact()
-	
 
 # Player damage
 func damage(dmgAmount : int):
