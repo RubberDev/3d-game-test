@@ -275,6 +275,3 @@ shape = SubResource("CapsuleShape3D_3qydi")
 libraries = {
 &"": SubResource("AnimationLibrary_tok1r")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-anim_player = NodePath("../AnimationPlayer")

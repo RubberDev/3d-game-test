@@ -14,7 +14,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_br0yf")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="MainP" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -28,7 +28,7 @@ offset_bottom = 316.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Panel"]
+[node name="Label" type="Label" parent="MainP"]
 layout_mode = 0
 offset_right = 526.0
 offset_bottom = 67.0
@@ -37,7 +37,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainP"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -52,25 +52,83 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Resume" type="Button" parent="Panel/VBoxContainer"]
+[node name="Resume" type="Button" parent="MainP/VBoxContainer"]
 layout_mode = 2
 text = "Resume"
 
-[node name="Settings" type="Button" parent="Panel/VBoxContainer"]
+[node name="Settings" type="Button" parent="MainP/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
 
-[node name="Save" type="Button" parent="Panel/VBoxContainer"]
+[node name="Save" type="Button" parent="MainP/VBoxContainer"]
 layout_mode = 2
 text = "Save Game"
 
-[node name="Load" type="Button" parent="Panel/VBoxContainer"]
+[node name="Load" type="Button" parent="MainP/VBoxContainer"]
 layout_mode = 2
 text = "Load Save"
 
-[node name="Quit" type="Button" parent="Panel/VBoxContainer"]
+[node name="Quit" type="Button" parent="MainP/VBoxContainer"]
 layout_mode = 2
 text = "Exit Game"
 
-[connection signal="pressed" from="Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="Settings" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 86.0
+offset_top = 31.0
+offset_right = -86.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Settings"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -139.0
+offset_right = 139.0
+offset_bottom = 72.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 51
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings"]
+layout_mode = 0
+offset_top = 72.0
+offset_right = 554.0
+offset_bottom = 658.0
+
+[node name="VolumeLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Volume: 50"
+
+[node name="Volume" type="HSlider" parent="Settings/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="SensLabel" type="Label" parent="Settings/VBoxContainer"]
+layout_mode = 2
+text = "Sensitivity (Not implemented)"
+
+[node name="HSlider" type="HSlider" parent="Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Settings"]
+layout_mode = 0
+offset_left = 554.0
+offset_top = 72.0
+offset_right = 1108.0
+offset_bottom = 658.0
+
+[connection signal="pressed" from="MainP/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="MainP/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MainP/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="value_changed" from="Settings/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
