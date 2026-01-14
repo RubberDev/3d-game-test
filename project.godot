@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="3D Game Test"
+config/name="Subconscious"
 run/main_scene="uid://uee7o3tpg8sj"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"

@@ -106,7 +106,7 @@ func _on_scaling_item_selected(index: int) -> void:
 			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_BILINEAR)
 
 
-
+# NEEDS TO BE FINISHED
 func save_info():
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	file.store_var(AudioServer.get_bus_volume_db(bus))
