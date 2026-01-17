@@ -1,6 +1,7 @@
 extends Control
 
 var save_path = "user://settingsInfo.save"
+var save_path2 = "user://SubconsciousGameState.save"
 
 func _ready() -> void:
 	$MainP.hide()
@@ -55,6 +56,13 @@ func _on_save_settings_debug_pressed() -> void:
 func _on_load_settings_debug_pressed() -> void:
 	load_info()
 
+# Save player actions/location/etc
+func _on_save_pressed() -> void:
+	pass
+
+# Save player actions/location/etc
+func _on_load_pressed() -> void:
+	pass # Replace with function body.
 
 
 # Volume
@@ -118,7 +126,7 @@ func _on_scaling_item_selected(index: int) -> void:
 		2:
 			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_BILINEAR)
 
-# Save and load settings (Does not apply to everything)
+# Save settings (Does not apply to everything)
 func save_info():
 	# Oh this'll be fun, I can tell
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
@@ -131,6 +139,7 @@ func save_info():
 	# Viewport scaling here
 	# Shadow atlas size here
 
+# Load settings (Does not apply to everything)
 func load_info():
 	print("Test")
 	if FileAccess.file_exists(save_path):

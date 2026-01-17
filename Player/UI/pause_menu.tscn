@@ -83,10 +83,12 @@ layout_mode = 2
 text = "Quit to Debug Menu"
 
 [node name="SaveSettingsDebug" type="Button" parent="MainP/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Save Settings"
 
 [node name="LoadSettingsDebug" type="Button" parent="MainP/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Load Settings"
 
@@ -243,6 +245,8 @@ offset_bottom = 658.0
 
 [connection signal="pressed" from="MainP/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MainP/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MainP/VBoxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="MainP/VBoxContainer/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="MainP/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="MainP/VBoxContainer/Quit2Debug" to="." method="_on_quit_2_debug_pressed"]
 [connection signal="pressed" from="MainP/VBoxContainer/SaveSettingsDebug" to="." method="_on_save_settings_debug_pressed"]
