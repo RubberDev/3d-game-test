@@ -30,6 +30,7 @@ window/stretch/mode="canvas_items"
 [global_group]
 
 Interactable="Something you can interact with in some way"
+Saveable=""
 
 [input]
 

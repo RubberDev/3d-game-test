@@ -192,7 +192,7 @@ _data = {
 &"Uncrouch": SubResource("Animation_tok1r")
 }
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Saveable"]]
 script = ExtResource("1_3qydi")
 
 [node name="Interface" type="CanvasLayer" parent="."]

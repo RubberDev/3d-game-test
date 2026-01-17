@@ -13,6 +13,11 @@ var SENSITIVITY = 0.005
 
 @export var Health = 100
 
+func get_save_data():
+	return[
+		
+	]
+
 # When game first launches
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
