@@ -5,7 +5,7 @@ var save_path = "user://settingsInfo.save"
 func _ready() -> void:
 	$MainP.hide()
 	$Settings.hide()
-	save_info()
+	load_info()
 	
 
 # Pausing
@@ -62,9 +62,11 @@ var bus = AudioServer.get_bus_index("Master")
 func _on_volume_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(bus, linear_to_db(value))
 	$Settings/VBoxContainer/VolumeLabel.text = "Volume: " + str(value)
+	save_info()
 
 # Window modes
 func _on_window_modes_item_selected(index: int) -> void:
+	save_info()
 	match index:
 		0:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
@@ -75,6 +77,7 @@ func _on_window_modes_item_selected(index: int) -> void:
 
 # Anti-aliasing
 func _on_atni_aliasing_item_selected(index: int) -> void:
+	save_info()
 	match index:
 		0:
 			get_viewport().msaa_3d = Viewport.MSAA_8X
@@ -93,6 +96,7 @@ func _on_atni_aliasing_item_selected(index: int) -> void:
 
 # Shadow resolution
 func _on_shadow_quality_item_selected(index: int) -> void:
+	save_info()
 	match index:
 		0:
 			RenderingServer.directional_shadow_atlas_set_size(8192, true)
@@ -105,6 +109,7 @@ func _on_shadow_quality_item_selected(index: int) -> void:
 
 # Scaling
 func _on_scaling_item_selected(index: int) -> void:
+	save_info()
 	match index:
 		0:
 			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_FSR2)
@@ -113,24 +118,18 @@ func _on_scaling_item_selected(index: int) -> void:
 		2:
 			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_BILINEAR)
 
-# NEEDS TO BE FINISHED
-func sync_menu():
-	pass
-
-
+# Save and load settings (Does not apply to everything)
 func save_info():
 	# Oh this'll be fun, I can tell
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	
-	print(" --- Save info --- ")
 	file.store_var(AudioServer.get_bus_volume_db(bus), true)
 	file.store_var(DisplayServer.window_get_mode(), true)
 	file.store_var(get_viewport().msaa_3d, true)
 	file.store_var(get_viewport().use_taa, true)
-	#file.store_var(RenderingServer)
-	#file.store_var(RenderingServer.viewport_scaling)
-	
-	print(" --- End --- ")
+	file.store_var($Settings/VBoxContainer/Volume.value)
+	# Viewport scaling here
+	# Shadow atlas size here
 
 func load_info():
 	print("Test")
@@ -159,7 +158,10 @@ func load_info():
 		print("Using TAA: " + str(use_taa))
 		get_viewport().use_taa = use_taa
 		
-		sync_menu()
+		var volume_slide = file.get_var()
+		print("Volume slider " + str(volume_slide))
+		$Settings/VBoxContainer/Volume.value = volume_slide
+		
 		print(" --- End --- ")
 		
 	elif not FileAccess.file_exists(save_path):
