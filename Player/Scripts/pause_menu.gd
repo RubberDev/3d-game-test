@@ -1,10 +1,11 @@
 extends Control
 
-var save_path = "user://settingsInfo.save"
+var save_path = "res://settingsInfo.save"
 
 func _ready() -> void:
 	$MainP.hide()
 	$Settings.hide()
+	
 
 # Pausing
 func _input(_event: InputEvent) -> void:
@@ -45,7 +46,13 @@ func _on_close_settings_pressed() -> void:
 func _on_quit_2_debug_pressed() -> void:
 	get_tree().change_scene_to_file("res://TitleScreens/DebugTitleScr/DebugTitleScreen.tscn")
 
+# Save everything in the settings menu (Debug only)
+func _on_save_settings_debug_pressed() -> void:
+	save_info()
 
+# Load everything in the settings menu (Debug only)
+func _on_load_settings_debug_pressed() -> void:
+	load_info()
 
 
 
@@ -105,16 +112,24 @@ func _on_scaling_item_selected(index: int) -> void:
 		2:
 			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_BILINEAR)
 
+var test : int = 10
 
 # NEEDS TO BE FINISHED
 func save_info():
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_var(test)
 	file.store_var(AudioServer.get_bus_volume_db(bus))
 	file.store_var(DisplayServer.window_get_mode())
 	file.store_var(get_viewport().msaa_3d)
 	file.store_var(get_viewport().use_taa)
-	#file.store_var(RenderingServer.)
+	#file.store_var(RenderingServer)
 	#file.store_var(RenderingServer.viewport_scaling)
 
 func load_info():
-	pass
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		AudioServer.set_bus_volume_db(bus, linear_to_db(file.get_var(AudioServer.get_bus_volume_db(bus))))
+		DisplayServer.window_set_mode(file.get_var(DisplayServer.window_get_mode()))
+		
+	else:
+		print("No save file detected")
