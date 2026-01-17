@@ -5,6 +5,7 @@ var save_path = "user://settingsInfo.save"
 func _ready() -> void:
 	$MainP.hide()
 	$Settings.hide()
+	save_info()
 	
 
 # Pausing
@@ -60,7 +61,7 @@ func _on_load_settings_debug_pressed() -> void:
 var bus = AudioServer.get_bus_index("Master")
 func _on_volume_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(bus, linear_to_db(value))
-	$Settings/VBoxContainer/VolumeLabel.text = "Volume: " + str(value*100)
+	$Settings/VBoxContainer/VolumeLabel.text = "Volume: " + str(value)
 
 # Window modes
 func _on_window_modes_item_selected(index: int) -> void:
@@ -113,23 +114,53 @@ func _on_scaling_item_selected(index: int) -> void:
 			RenderingServer.viewport_set_scaling_3d_mode(get_viewport().get_viewport_rid(), RenderingServer.VIEWPORT_SCALING_3D_MODE_BILINEAR)
 
 # NEEDS TO BE FINISHED
+func sync_menu():
+	pass
+
+
 func save_info():
 	# Oh this'll be fun, I can tell
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	
+	print(" --- Save info --- ")
 	file.store_var(AudioServer.get_bus_volume_db(bus), true)
 	file.store_var(DisplayServer.window_get_mode(), true)
 	file.store_var(get_viewport().msaa_3d, true)
 	file.store_var(get_viewport().use_taa, true)
 	#file.store_var(RenderingServer)
 	#file.store_var(RenderingServer.viewport_scaling)
+	
+	print(" --- End --- ")
 
 func load_info():
 	print("Test")
 	if FileAccess.file_exists(save_path):
-		var file = FileAccess.open(save_path, FileAccess.READ)
-		AudioServer.set_bus_volume_db(bus, linear_to_db(file.get_var(AudioServer.get_bus_volume_db(bus))))
-		DisplayServer.window_set_mode(file.get_var(DisplayServer.window_get_mode()))
+		var file := FileAccess.open(save_path, FileAccess.READ)
 		
+		if file == null:
+			push_error("Failed to open settings save file for reading: " + save_path)
+			return
+			
+		print(" --- Load Info --- ")
 		
-	else:
-		print("No save file detected")
+		var bus_volume_db = file.get_var()
+		print("Bus volume (dB): ", bus_volume_db)
+		AudioServer.set_bus_volume_db(bus, bus_volume_db)
+		
+		var window_mode = file.get_var()
+		print("Window mode: " + str(window_mode))
+		DisplayServer.window_set_mode(window_mode)
+		
+		var anti_aliasing = file.get_var()
+		print("Anti-Aliasing: " + str(anti_aliasing))
+		get_viewport().msaa_3d = anti_aliasing
+		
+		var use_taa = file.get_var()
+		print("Using TAA: " + str(use_taa))
+		get_viewport().use_taa = use_taa
+		
+		sync_menu()
+		print(" --- End --- ")
+		
+	elif not FileAccess.file_exists(save_path):
+		push_error("Settings save file does not exist: " + save_path)

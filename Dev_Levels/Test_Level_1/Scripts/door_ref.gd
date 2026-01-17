@@ -15,14 +15,12 @@ func _ready() -> void:
 func Interact():
 		if Locked == false:
 			if Opened == false:
-				print("Opened door")
 				$AnimationPlayer.play("OpenDoor")
 				$Sound/DoorOpen.play()
 				$LockedCollider.set_deferred("disabled", true)
 				$LockedCollider2.set_deferred("disabled", false)
 				Opened = true
 			elif Opened == true:
-				print("Closed door")
 				$AnimationPlayer.play("CloseDoor")
 				$Sound/DoorClose.play()
 				$LockedCollider.set_deferred("disabled", false)

@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bd8sfi0q3xu3h" path="res://Dev_Levels/Test_Level_1/Scripts/door_ref.gd" id="1_1mf6g"]
 [ext_resource type="Texture2D" uid="uid://dgbtg8q2oo7gw" path="res://addons/KenneyTextures/green/texture_09.png" id="2_mdh8w"]
-[ext_resource type="AudioStream" uid="uid://2pswvgmrh08m" path="res://AudioFX/Artificial/Door_Close.wav" id="2_x3qd0"]
-[ext_resource type="AudioStream" uid="uid://dnyss8cxl5tsn" path="res://AudioFX/Artificial/Door_Open.wav" id="3_31f8l"]
-[ext_resource type="AudioStream" uid="uid://i1w0btvoog5p" path="res://AudioFX/Artificial/LockedWoodDoor.wav" id="4_31f8l"]
+[ext_resource type="AudioStream" uid="uid://2pswvgmrh08m" path="res://AudioFX/Door_Close.wav" id="2_x3qd0"]
+[ext_resource type="AudioStream" uid="uid://dnyss8cxl5tsn" path="res://AudioFX/Door_Open.wav" id="3_31f8l"]
+[ext_resource type="AudioStream" uid="uid://i1w0btvoog5p" path="res://AudioFX/LockedWoodDoor.wav" id="4_31f8l"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5awq6"]
 

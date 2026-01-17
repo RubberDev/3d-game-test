@@ -6,6 +6,10 @@ Rubber
 Programming
 Rubber
 
+Programming Assistance
+Godot Engine Community Discord Server members
+StackExchange users
+
 Animation
 Rubber
 
