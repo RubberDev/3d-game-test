@@ -13,10 +13,14 @@ var SENSITIVITY = 0.005
 
 @export var Health = 100
 
+# Add this to everything that needs saved
+# Make the save button go through all of the nodes looking for this func
+# If it has the func, grab the info and save to file
 func get_save_data():
-	return[
-		
-	]
+	return{
+		"player_health" : Health,
+		"player_crouched" : Crouched
+	}
 
 # When game first launches
 func _ready() -> void:
