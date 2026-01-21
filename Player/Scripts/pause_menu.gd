@@ -2,6 +2,7 @@ extends Control
 
 var save_path = "user://settingsInfo.save"
 var save_path2 = "user://SubconsciousGameState.save"
+var _Environment = get_tree().get_nodes_in_group()
 
 func _ready() -> void:
 	$MainP.hide()
