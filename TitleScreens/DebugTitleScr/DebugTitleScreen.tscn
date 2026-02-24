@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://uee7o3tpg8sj"]
+[gd_scene format=3 uid="uid://uee7o3tpg8sj"]
 
 [ext_resource type="Script" uid="uid://dvlahrrtninjy" path="res://TitleScreens/DebugTitleScr/debug_title_screen.gd" id="1_jwvq1"]
 
-[node name="DebugTitleScreen" type="Control"]
+[node name="DebugTitleScreen" type="Control" unique_id=647129821]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jwvq1")
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=844040297]
 layout_mode = 1
 offset_right = 547.0
 offset_bottom = 69.0
@@ -19,7 +19,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 50
 text = "Debugging Level Menu"
 
-[node name="Quit" type="Button" parent="."]
+[node name="Quit" type="Button" parent="." unique_id=1223027657]
 layout_mode = 0
 offset_left = 1114.0
 offset_top = 686.0
@@ -27,7 +27,7 @@ offset_right = 1276.0
 offset_bottom = 715.0
 text = "Quit"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1652547850]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -35,39 +35,39 @@ offset_top = 70.0
 offset_right = 397.0
 grow_vertical = 2
 
-[node name="TestLvl1" type="Button" parent="VBoxContainer"]
+[node name="TestLvl1" type="Button" parent="VBoxContainer" unique_id=1407179281]
 layout_mode = 2
 text = "Phys and Trigger Test"
 
-[node name="TestLvl2" type="Button" parent="VBoxContainer"]
+[node name="TestLvl2" type="Button" parent="VBoxContainer" unique_id=734046695]
 layout_mode = 2
 text = "Basic Env Test"
 
-[node name="TestLvl3" type="Button" parent="VBoxContainer"]
+[node name="TestLvl3" type="Button" parent="VBoxContainer" unique_id=1096599751]
 layout_mode = 2
 text = "Light & Gmtry Test"
 
-[node name="TestLvl4" type="Button" parent="VBoxContainer"]
+[node name="TestLvl4" type="Button" parent="VBoxContainer" unique_id=191311824]
 layout_mode = 2
 text = "Trigger Light Test"
 
-[node name="TestLvl5" type="Button" parent="VBoxContainer"]
+[node name="TestLvl5" type="Button" parent="VBoxContainer" unique_id=1036294604]
 layout_mode = 2
 text = "Gameplay Test 1"
 
-[node name="TestLvl6" type="Button" parent="VBoxContainer"]
+[node name="TestLvl6" type="Button" parent="VBoxContainer" unique_id=1153035964]
 layout_mode = 2
 text = "Door Test"
 
-[node name="TestLvl7" type="Button" parent="VBoxContainer"]
+[node name="TestLvl7" type="Button" parent="VBoxContainer" unique_id=603619431]
 layout_mode = 2
 text = "Kill Yourself"
 
-[node name="ParticleRoom" type="Button" parent="VBoxContainer"]
+[node name="ParticleRoom" type="Button" parent="VBoxContainer" unique_id=1429905131]
 layout_mode = 2
 text = "Particle Room"
 
-[node name="BlenderImportTest" type="Button" parent="VBoxContainer"]
+[node name="BlenderImportTest" type="Button" parent="VBoxContainer" unique_id=1546156516]
 layout_mode = 2
 text = "Blender Import Test"
 
