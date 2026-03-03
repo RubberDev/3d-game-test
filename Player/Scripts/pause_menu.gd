@@ -9,6 +9,8 @@ func _ready() -> void:
 	$Settings.hide()
 	load_info()
 	
+	#DisplayServer.window_set_mode()
+	
 
 # Pausing
 func _input(_event: InputEvent) -> void:
@@ -137,6 +139,11 @@ func save_info():
 	file.store_var(get_viewport().msaa_3d, true)
 	file.store_var(get_viewport().use_taa, true)
 	file.store_var($Settings/VBoxContainer/Volume.value)
+	file.store_var($Settings/VBoxContainer/WindowModes.get_selected_id())
+	file.store_var($Settings/VBoxContainer/Resolutions.get_selected_id())
+	file.store_var($"Settings/VBoxContainer/Anti-Aliasing".get_selected_id())
+	file.store_var($Settings/VBoxContainer/ShadowQuality.get_selected_id())
+	file.store_var($Settings/VBoxContainer/Scaling.get_selected_id())
 	# Viewport scaling here
 	# Shadow atlas size here
 
@@ -172,7 +179,28 @@ func load_info():
 		print("Volume slider " + str(volume_slide))
 		$Settings/VBoxContainer/Volume.value = volume_slide
 		
+		var wind_mode_ind = file.get_var()
+		print("Set window mode")
+		$Settings/VBoxContainer/WindowModes.select(wind_mode_ind)
+		
+		var res_mode = file.get_var()
+		print("Set resolution")
+		$Settings/VBoxContainer/Resolutions.select(res_mode)
+		
+		var aa_dropdown = file.get_var()
+		print("Set anti-aliasing")
+		$"Settings/VBoxContainer/Anti-Aliasing".select(aa_dropdown)
+		
+		var shadow_dropdown = file.get_var()
+		print("Set shadow quality")
+		$Settings/VBoxContainer/ShadowQuality.select(shadow_dropdown)
+		
+		var scale_dropdown = file.get_var()
+		print("Set scaling")
+		$Settings/VBoxContainer/Scaling.select(scale_dropdown)
+		
 		print(" --- End --- ")
 		
 	elif not FileAccess.file_exists(save_path):
+		print("No save file detected")
 		push_error("Settings save file does not exist: " + save_path)
