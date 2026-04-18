@@ -93,7 +93,6 @@ layout_mode = 2
 text = "Load Settings"
 
 [node name="Settings" type="Panel" parent="." unique_id=721892200]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
